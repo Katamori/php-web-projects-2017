@@ -1,0 +1,34 @@
+to-do:
+- fix MAL script on server
+- huge overhaul for the YT crawler
+
+-------------------------------------------------------------
+
+
+Project ideas:
+
+Zoltán Schmidt, [23.03.17 01:21]
+dee az is megteszi hogy lekapom mindenféle hírportálról a híreket, timestamppel, 
+és napra, sőt órára lebontva szöveg szerinti elemzést baszatok rá
+
+Zoltán Schmidt, [23.03.17 01:22]
+annyit csak hogy milyen szavak kerülnek elő, vágod
+
+-------------------------------------------------------------
+
+Some very-very simple documentation on the structure of the server, to make myself, and potentially, anyone
+downloading it from GitHub a bit less confused on the usage of it.
+
+- index.php has the obvious function: that is a main page.
+    - it's fairly possible I'll make it back to a simple plain HTML as I have no need to use php there.
+- EVERY php-only script must be put into the /php folder.
+
+- /hostinger folder contains the stuff I design to be used from remote access at katamori.16mb.com
+    - dblogin.php contains a login form that sends database login info to "/php/dbjoin.php"
+    - every database login must go through "/hostinger/dblogin.php"
+        - every script using database queries must include "/php/dbjoin.php" at the beginning
+
+- /myanimelist contains stuff I want to do with the MyAnimeList.net API
+    - "/myanimelist/login" contains the login form that then tries establishing authorization via "/php/mal_auth.php"
+    - after login "/myanimelist/watchlist.php" lists the user's anime watchlist
+
