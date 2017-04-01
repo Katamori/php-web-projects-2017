@@ -1,7 +1,11 @@
+<?php 
+    //require("../php/dbjoin.php"); 
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html>
 
-    <?php require("../myanimelist/mal_auth.php"); ?>
 	<head>
         <style>
             td {
@@ -33,13 +37,13 @@
 	<body>
 
         <h1> Your MyAnimeList watchlist </h1>
-        <h2> The first 32 elements of your watchlist</h2>
+        <h2> The first xy elements of your watchlist</h2>
           
 
         <br>
 
         <?php
-
+        
            /*
 
                 to-do:

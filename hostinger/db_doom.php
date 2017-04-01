@@ -1,7 +1,18 @@
+<?php 
+    session_start();
+    require("../hostinger/dbjoin.php");
+
+    if ($_SESSION["dbname"] != "u373989137_doom"){
+        echo "Database is either not selected or the wrong one is selected! <br>".
+             "Thus, for safety reasons, php scripts are terminated. Log in again!";
+        exit();
+    }
+?>
+
 <!DOCTYPE html>
 <html>
 
-    <?php require("../php/dbjoin.php"); ?>
+
 	<head>
 
         <style>
@@ -47,7 +58,7 @@
 
                         // Fire off the request to /form.php
                         request = $.ajax({
-                            url: "../hostinger/doomvids.php",
+                            url: "../hostinger/db_doom.php",
                             type: "post",
                             data: serializedData
                         });
@@ -55,7 +66,7 @@
                         // Callback handler that will be called on success
                         request.done(function (response, textStatus, jqXHR){
                             // Log a message to the console
-                            console.log("doomvids.php successfully called and loaded.");
+                            console.log("db_doom.php successfully called and loaded.");
                         });
 
                         // Callback handler that will be called on failure
@@ -95,7 +106,7 @@
 
         <h2>Repeat action via regular php form submission</h2>
 
-		<form action="../hostinger/doomvids.php" method="post" id="main_form">
+		<form action="../hostinger/db_doom.php" method="post" id="main_form">
 
 			Login: <br>
 			<input type="text" name="login" value="u373989137_doom"><br> 
@@ -108,7 +119,7 @@
 
         <h2>Or use AJAX via jQuery without the need of reloading the page</h2>
 
-		<form action="../hostinger/doomvids.php" method="post" id="ajax_form">
+		<form action="../hostinger/db_doom.php" method="post" id="ajax_form">
 
 			Login: <br>
 			<input type="text" name="login" value="u373989137_doom"><br> 
@@ -280,6 +291,7 @@
         */
 
 
+
             //a set of useful SQL parameters
             $query_d2only = "(title like '%doom%' or title like '%heretic%' ". 
                             "or title like '%hexen%' or title like '%strife%' ". 
@@ -399,7 +411,7 @@
 
 
 
-            mysqli_close($_SESSION["dbconn_doom"]);
+            //mysqli_close($_SESSION["dbconn_doom"]);
 
         ?>
 

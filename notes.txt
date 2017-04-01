@@ -1,8 +1,10 @@
 to-do:
-- fix MAL script on server
+- fix MAL script on server [apparently done]
+- extend MAL watchlist viewer with proper features
+- ensure proper security...
 - huge overhaul for the YT crawler
-- manage index.php login forms to be interactive somehow
-    - maybe a "switch.php" that includes corresponding scripts by sent purpose
+- finish AJAX "applications" at all
+- some CSS design for some proper look
 
 -------------------------------------------------------------
 
@@ -27,10 +29,12 @@ downloading it from GitHub a bit less confused on the usage of it.
 - EVERY php-only script must be put into the /php folder.
 
 - /hostinger folder contains the stuff I design to be used from remote access at katamori.16mb.com
-    - index.php contains a login form that sends database login info to "/php/dbjoin.php"
-    - every script using database queries must include "/php/dbjoin.php" at the beginning
+    - index.php contains a login form that sends database login info to "/hostinger/redirect.php"
+    - every script using database queries must include "/hostinger/dbjoin.php" at the beginning
 
 - /myanimelist contains stuff I want to do with the MyAnimeList.net API
-    - "index.php" contains the login form that then tries establishing authorization via "/php/mal_auth.php"
+    - "index.php" contains the login form that then tries establishing authorization via "/myanimelist/mal_auth.php"
+        - "/myanimelist/mal_auth.php" gets the redirect "names" through the dropdown list's names
+        - moreover, this file must not contain any additional HTML code 
     - after login "/myanimelist/watchlist.php" lists the user's anime watchlist
 

@@ -17,7 +17,9 @@
 
 
 	<body>
-		<h1>Katamori's php project server</h1>
+		<h1>Katamori's php project server - AJAX login edition</h1>
+
+        <p>The concept behind this page: to use only one page for each login. <br><br> Kinda. </p>
 
 
 		<div>
@@ -26,16 +28,16 @@
 			<h3>If you afraid using your password here, who am I to blame...</h3>
 			<h4>(so far, it logs you in only to the watchlist listing feature - sorry)</h4>
 
-			<form action="../myanimelist/mal_auth.php" method="post">
+			<form action="../ajax/myanimelist.php" method="post">
 
 				Login<br>
-				<input type="text" name="mal_login" value="Katamori"> <br>
+				<input type="text" name="ajax_mal_login" value="Katamori"> <br>
 
 				Password:<br>
-				<input type="password" name="mal_pw"> <br>
+				<input type="password" name="ajax_mal_pw"> <br>
 
 				Choose action: <br>
-				<select name="mal_action">
+				<select name="ajax_mal_action">
 					<option value="watchlist">Custom watchlist</option>
 					<option value="unidentified">RESERVED</option>
 					<option value="unidentified">RESERVED</option>
@@ -55,16 +57,16 @@
 			<h3> anywhere else than katamori.16mb.com</h3>
 			<h4>(so far, it logs you in only to the Doom crawler server)</h4>
 
-			<form action="../hostinger/dbjoin.php" method="post">
+			<form action="../ajax/hostinger.php" method="post">
 
 				Login<br>
-				<input type="text" name="hostinger_login" value="u373989137_doom"> <br>
+				<input type="text" name="ajax_hostinger_login" value="u373989137_doom"> <br>
 
 				Password:<br>
-				<input type="password" name="hostinger_pw"><br> 
+				<input type="password" name="ajax_hostinger_pw"><br> 
 
 				Choose database: <br>
-				<select name="hostinger_db">
+				<select name="ajax_hostinger_db">
 					<option value="doom">Doom</option>
 					<option value="misc">Misc (NOT AVAILABLE)</option>
 				</select>
@@ -74,23 +76,11 @@
 			</form> 			
 		</div>
 
-		<h2>These are regular login forms - to try with AJAX, <a href="../ajax/login.php">click here.</a> </h2>
+		<h2>AJAX application experiments - to use regular php form submission, <a href="../index.php">click here.</a> </h2>
 
-<!--
-		<a href="./hostinger/dblogin.php">Database operations on hostinger server</a>
-		<br>
-		<a href="./myanimelist/login.php">MyAnimeList API use</a>
--->		
 
 		<?php
-			error_reporting(E_ALL);
-			ini_set('display_errors', 'On');
 
-			//require('./php/test.php');
-
-			//echo "teszt";
-
-			//echo file_get_contents('http://www.doomworld.com')."\n";
 
 		?>                
 
