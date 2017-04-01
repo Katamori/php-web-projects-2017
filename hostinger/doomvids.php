@@ -377,7 +377,7 @@
 
             */
 
-            $query = "SELECT * FROM videos WHERE uploader IS NULL ORDER BY distance LIMIT 0, 55";
+            $query = "SELECT * FROM videos WHERE uploader IS NULL ORDER BY distance LIMIT 0, 50";
             $sql_result = mysqli_query($_SESSION["dbconn_doom"], $query) 
                         or die($query.' failed: ' . mysqli_error($_SESSION["dbconn_doom"]));          
 

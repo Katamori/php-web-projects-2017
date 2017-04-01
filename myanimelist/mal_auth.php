@@ -8,10 +8,10 @@
 
     */
 
-    if (isset($_POST["login"]) && isset($_POST["pw"])) {
+    if (isset($_POST["mal_login"]) && isset($_POST["mal_pw"])) {
 
-        $login = htmlspecialchars($_POST["login"]);
-        $pw = htmlspecialchars($_POST["pw"]);
+        $login = htmlspecialchars($_POST["mal_login"]);
+        $pw = htmlspecialchars($_POST["mal_pw"]);
 
         // Create a stream
         $options = array(

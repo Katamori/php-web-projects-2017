@@ -171,7 +171,7 @@
           
             echo("<table>");    //table output
 
-            for($j=0; $j<32; $j++){ $value = $items[$j];
+            for($j=0; $j<10; $j++){ $value = $items[$j];
             //foreach($items as $value){
                 //echo $value->title." (btw ".var_dump($options).") <br>";
 
