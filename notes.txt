@@ -5,6 +5,8 @@ to-do:
 - huge overhaul for the YT crawler
 - finish AJAX "applications" at all
 - some CSS design for some proper look
+- start differentiating beta/unstable vs public/master 
+    - different branch in Git
 
 -------------------------------------------------------------
 

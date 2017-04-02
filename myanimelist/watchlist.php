@@ -104,10 +104,9 @@
             $url_search = 'https://myanimelist.net/api/anime/search.xml?q=Kemonozume';
             $url_user = 'https://myanimelist.net/malappinfo.php?u='.$_SESSION['mal_username'].'&status=2&type=anime';
 
-
             // Open the file using the HTTP headers set above
             $url = $url_user; 
-            $xml = file_get_contents($url, false, $_SESSION['mal_connect_context']);    
+            $xml = file_get_contents($url, false, stream_context_create($_SESSION["http_auth"]));    
             //$xml = file_get_contents("./mal_tempxml.xml");
 
             $parser = xml_parser_create();
@@ -183,7 +182,7 @@
                 //query about the anime itself
                 $tempxml = file_get_contents(
                     "https://myanimelist.net/api/anime/search.xml?q=" . str_replace(" ","+",$value->title), 
-                    false, $_SESSION["mal_connect_context"]);
+                    false, stream_context_create($_SESSION["http_auth"]));
 
                 $p = xml_parser_create();
                 xml_parse_into_struct($p, $tempxml, $temp_array);

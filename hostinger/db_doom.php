@@ -106,7 +106,7 @@
 
         <h2>Repeat action via regular php form submission</h2>
 
-		<form action="../hostinger/db_doom.php" method="post" id="main_form">
+		<form action="" method="post" id="main_form">
 
 			Login: <br>
 			<input type="text" name="login" value="u373989137_doom"><br> 
@@ -119,7 +119,7 @@
 
         <h2>Or use AJAX via jQuery without the need of reloading the page</h2>
 
-		<form action="../hostinger/db_doom.php" method="post" id="ajax_form">
+		<form action="" method="post" id="ajax_form">
 
 			Login: <br>
 			<input type="text" name="login" value="u373989137_doom"><br> 
@@ -209,27 +209,27 @@
 
                     $q .=    "UPDATE videos SET uploader='".$j->items[0]->snippet->channelId.
                             "' WHERE id='".$row['id']."' AND uploader IS NULL; ";
-                    //$r = mysqli_query($_SESSION["dbconn_doom"], $q) or die($q.' failed: ' . mysqli_error($_SESSION["dbconn_doom"]));
+                    //$r = mysqli_query($_SESSION["dbconn"], $q) or die($q.' failed: ' . mysqli_error($_SESSION["dbconn"]));
 
 
 
                     $q .=   "INSERT IGNORE INTO uploaders VALUES ('"
                             .$j->items[0]->snippet->channelId."','"
                             .str_replace("'"," ",$j->items[0]->snippet->channelTitle)."'); ";  
-                    //$r = mysqli_query($_SESSION["dbconn_doom"], $q2) or die($q2.' failed: ' . mysqli_error($_SESSION["dbconn_doom"]));                
+                    //$r = mysqli_query($_SESSION["dbconn"], $q2) or die($q2.' failed: ' . mysqli_error($_SESSION["dbconn"]));                
                 
 
 
                     $q .=   "UPDATE uploaders SET name='".str_replace("'"," ",$j->items[0]->snippet->channelTitle).
                                 "' WHERE id='".$j->items[0]->snippet->channelId."' AND name IS NULL; ";
-                    //$r = mysqli_query($_SESSION["dbconn_doom"], $q3) or die($q3.' failed: ' . mysqli_error($_SESSION["dbconn_doom"]));
+                    //$r = mysqli_query($_SESSION["dbconn"], $q3) or die($q3.' failed: ' . mysqli_error($_SESSION["dbconn"]));
 
                 };
 
 
                 $q .= "COMMIT;";
 
-                $r = mysqli_multi_query($_SESSION["dbconn_doom"], $q) or die($q.' failed: ' . mysqli_error($_SESSION["dbconn_doom"]));
+                $r = mysqli_multi_query($_SESSION["dbconn"], $q) or die($q.' failed: ' . mysqli_error($_SESSION["dbconn"]));
 
             };
 
@@ -240,8 +240,8 @@
 
 
                 $query = 'SELECT * FROM videos ORDER BY distance DESC LIMIT 0, 5';
-                $sql_result = mysqli_query($_SESSION["dbconn_doom"], $query) 
-                                or die($query.' failed: ' . mysqli_error($_SESSION["dbconn_doom"]));     
+                $sql_result = mysqli_query($_SESSION["dbconn"], $query) 
+                                or die($query.' failed: ' . mysqli_error($_SESSION["dbconn"]));     
 
 
                 echo "<table>";
@@ -332,8 +332,8 @@
 /*
 
             $query = "SELECT * FROM videos WHERE checked <> 0 AND ".$query_d2only.$limit;
-            $sql_result = mysqli_query($_SESSION["dbconn_doom"], $query) 
-                        or die($query.' failed: ' . mysqli_error($_SESSION["dbconn_doom"]));   
+            $sql_result = mysqli_query($_SESSION["dbconn"], $query) 
+                        or die($query.' failed: ' . mysqli_error($_SESSION["dbconn"]));   
 
             //according to certain parameters, do changes
             while($row = mysqli_fetch_assoc($sql_result)) {
@@ -360,10 +360,10 @@
                         "INSERT IGNORE INTO uploaders (id) VALUES ('".$item_array->snippet->channelId."')";
 
 
-                    $result = mysqli_query($_SESSION["dbconn_doom"], $query) 
-                                or die($query.' failed: ' . mysqli_error($_SESSION["dbconn_doom"]));
-                    $result = mysqli_query($_SESSION["dbconn_doom"], $query_b) 
-                                or die($query.' failed: ' . mysqli_error($_SESSION["dbconn_doom"]));                                
+                    $result = mysqli_query($_SESSION["dbconn"], $query) 
+                                or die($query.' failed: ' . mysqli_error($_SESSION["dbconn"]));
+                    $result = mysqli_query($_SESSION["dbconn"], $query_b) 
+                                or die($query.' failed: ' . mysqli_error($_SESSION["dbconn"]));                                
 
 
                 }
@@ -371,8 +371,8 @@
 
                 //set the source column "checked"
                 $query = "UPDATE videos SET checked = 1 WHERE id = '".$row['id']."'";
-                $result = mysqli_query($_SESSION["dbconn_doom"], $query) 
-                            or die($query.' failed: ' . mysqli_error($_SESSION["dbconn_doom"]));                 
+                $result = mysqli_query($_SESSION["dbconn"], $query) 
+                            or die($query.' failed: ' . mysqli_error($_SESSION["dbconn"]));                 
 
 
                 //echo $query.'<br>';
@@ -390,8 +390,8 @@
             */
 
             $query = "SELECT * FROM videos WHERE uploader IS NULL ORDER BY distance LIMIT 0, 50";
-            $sql_result = mysqli_query($_SESSION["dbconn_doom"], $query) 
-                        or die($query.' failed: ' . mysqli_error($_SESSION["dbconn_doom"]));          
+            $sql_result = mysqli_query($_SESSION["dbconn"], $query) 
+                        or die($query.' failed: ' . mysqli_error($_SESSION["dbconn"]));          
 
 
             setMissingUploader($sql_result);            
@@ -411,7 +411,7 @@
 
 
 
-            //mysqli_close($_SESSION["dbconn_doom"]);
+            //mysqli_close($_SESSION["dbconn"]);
 
         ?>
 

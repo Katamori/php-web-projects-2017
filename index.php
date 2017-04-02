@@ -55,7 +55,7 @@
 			<h3> anywhere else than katamori.16mb.com</h3>
 			<h4>(so far, it logs you in only to the Doom crawler server)</h4>
 
-			<form action="../hostinger/dbjoin.php" method="post">
+			<form action="../hostinger/redirect.php" method="post">
 
 				Login<br>
 				<input type="text" name="hostinger_login" value="u373989137_doom"> <br>

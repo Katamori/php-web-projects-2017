@@ -4,27 +4,19 @@
 
     if (isset($_POST["mal_login"]) && isset($_POST["mal_pw"]) && isset($_POST["mal_action"])) {
 
-
-        /*
-
-            MAL HTTP authentication
-
-            source: http://stackoverflow.com/a/21565794/2320153
-
-        */
+        //MAL HTTP authentication - source: http://stackoverflow.com/a/21565794/2320153
 
         $login = htmlspecialchars($_POST["mal_login"]);
         $pw = htmlspecialchars($_POST["mal_pw"]);
 
         // Create a stream
-        $options = array(
+        $_SESSION["http_auth"] = array(
             'http'=>array(
                 'method' => "GET",
                 'header' => "Authorization: Basic " . base64_encode($login.':'.$pw)                 
             )
         );
 
-        $_SESSION["mal_connect_context"] = stream_context_create($options);
         $_SESSION['mal_username'] = $login;
 
         //manual switch link because my host
