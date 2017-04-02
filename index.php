@@ -22,8 +22,8 @@
 
 		<div>
 			<h2>MyAnimeList login</h2>
-			<h3>Note: I don't steal your data, but have no idea about security either.</h3>
-			<h3>If you afraid using your password here, who am I to blame...</h3>
+			<p>Note: I don't steal your data, but have no idea about security either. <br>
+			   If you afraid using your password here, who am I to blame...</p>
 
 			<form action="../myanimelist/mal_auth.php" method="post">
 
@@ -35,6 +35,7 @@
 
 				Choose action: <br>
 				<select name="mal_action">
+					<option value="main">Main page (not implemented yet)</option>				
 					<option value="watchlist">Custom watchlist</option>
 					<option value="unidentified">RESERVED</option>
 					<option value="unidentified">RESERVED</option>
@@ -50,7 +51,7 @@
 
 		<div>
 			<h2>Hostinger database login</h2>
-			<h3>Only for the site admin so far</h3>
+			<p>Only for the site admin so far</p>
 
 			<form action="../hostinger/redirect.php" method="post">
 
@@ -69,15 +70,7 @@
 
 				<input type="submit">
 			</form> 			
-		</div>
-
-		<h2>These are regular login forms - to try with AJAX, <a href="../ajax/login.php">click here.</a> </h2>
-
-<!--
-		<a href="./hostinger/dblogin.php">Database operations on hostinger server</a>
-		<br>
-		<a href="./myanimelist/login.php">MyAnimeList API use</a>
--->		
+		</div>	
 
 		<?php
 			error_reporting(E_ALL);

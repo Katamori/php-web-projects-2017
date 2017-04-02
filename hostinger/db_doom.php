@@ -98,9 +98,9 @@
                 $('#repeat_form :checkbox').change(function() {
                     // this will contain a reference to the checkbox   
                     if ($(this).is(':checked')) {
-                        AJAXsubmission();                   //console.log('checked');
+                        AJAXsubmission();
                     } else {
-                        $("#repeat_form").off('submit');    //console.log('unchecked');
+                        $("#repeat_form").off('submit');
                     }
                 });
 

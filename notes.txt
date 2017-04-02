@@ -1,16 +1,29 @@
 to-do:
-- fix MAL script on server [apparently done]
-- extend MAL watchlist viewer with proper features
-- ensure proper security...
-- huge overhaul for the YT crawler
-- finish AJAX "applications" at all
-- some CSS design for some proper look
-- start differentiating beta/unstable vs public/master 
-    - different branch in Git
-- add new tables to x_doom db: authors, speedrunners, trusted uploaders(?)   
 
-- Reddit statistics database (for reader amounts at least)
-- SCP database(?) 
+- high priority:
+    - ensure proper security...
+    - huge overhaul for the YT crawler
+    - add new tables to x_doom db: authors, speedrunners, trusted uploaders(?)   
+
+
+- medium priority:
+    - extend MAL watchlist viewer with proper features
+    - update cronjob (not visible on GitHub due to plaintext password contained)
+        - multi-thread cronjob
+    - hide login inputs when AJAX request is sent
+    - hide login inputs if you're already logged in
+    - Reddit statistics database (for reader amounts at least)
+    - SCP database(?) 
+
+- low priority:
+    - some CSS design for some proper look
+    - start differentiating beta/unstable vs public/master 
+        - different branch in Git?
+
+
+- done:
+    - fix MAL script on server [apparently done]
+
 
 -------------------------------------------------------------
 
