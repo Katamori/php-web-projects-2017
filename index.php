@@ -24,7 +24,6 @@
 			<h2>MyAnimeList login</h2>
 			<h3>Note: I don't steal your data, but have no idea about security either.</h3>
 			<h3>If you afraid using your password here, who am I to blame...</h3>
-			<h4>(so far, it logs you in only to the watchlist listing feature - sorry)</h4>
 
 			<form action="../myanimelist/mal_auth.php" method="post">
 
@@ -51,9 +50,7 @@
 
 		<div>
 			<h2>Hostinger database login</h2>
-			<h3>Note: this part of the code won't work if running</h3>
-			<h3> anywhere else than katamori.16mb.com</h3>
-			<h4>(so far, it logs you in only to the Doom crawler server)</h4>
+			<h3>Only for the site admin so far</h3>
 
 			<form action="../hostinger/redirect.php" method="post">
 

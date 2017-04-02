@@ -33,7 +33,7 @@
                 var request;
 
                 // Bind to the submit event of our form
-                $("#ajax_form").submit(function(event){
+                $("#repeat_form").on("submit", function(event){
 
                         // Prevent default posting of form - put here to work in case of errors
                         event.preventDefault();
@@ -90,7 +90,23 @@
             };
 
 
-            $(document).ready(function(){AJAXsubmission()});
+            $(document).ready(function(){
+                                        
+                AJAXsubmission();
+                
+                //warning: don't use it with multiple checkboxes!
+                $('#repeat_form :checkbox').change(function() {
+                    // this will contain a reference to the checkbox   
+                    if ($(this).is(':checked')) {
+                        AJAXsubmission();                   //console.log('checked');
+                    } else {
+                        $("#repeat_form").off('submit');    //console.log('unchecked');
+                    }
+                });
+
+            });
+
+
 
 
 		</script>		
@@ -104,36 +120,22 @@
 
         <h1> Collection of Youtube videos about Doom </h1>
 
-        <h2>Repeat action via regular php form submission</h2>
+        <h2>Sorry, but to allow *any* DB change, you must log in again.</h2>
 
-		<form action="" method="post" id="main_form">
+		<form action="" method="post" id="repeat_form">
 
-			Login: <br>
-			<input type="text" name="login" value="u373989137_doom"><br> 
-
-            Password:<br>
-            <input type="password" name="pw"><br> 
-
-			<input type="submit">
-		</form>   
-
-        <h2>Or use AJAX via jQuery without the need of reloading the page</h2>
-
-		<form action="" method="post" id="ajax_form">
-
-			Login: <br>
-			<input type="text" name="login" value="u373989137_doom"><br> 
-
-            Password:<br>
-            <input type="password" name="pw"><br> 
-
+			Login: 
+            <br>
+			<input type="text" name="login" value="u373989137_doom">
+            <br> 
+            Password:
+            <br>
+            <input type="password" name="pw">
+            <br>
+            <input type="checkbox" name="ajax" checked> Use AJAX?
+            <br> 
 			<input type="submit">
 		</form>            
-
-        <br>
-
-        <button onClick="setInterval(AJAXsubmission, 30*1000)">setInterval</button>
-
 
         <?php
 
@@ -207,25 +209,24 @@
                     $j = json_decode(sendRequest("single", $row['id']));
                     //var_dump($j->items);
 
-                    $q .=    "UPDATE videos SET uploader='".$j->items[0]->snippet->channelId.
-                            "' WHERE id='".$row['id']."' AND uploader IS NULL; ";
-                    //$r = mysqli_query($_SESSION["dbconn"], $q) or die($q.' failed: ' . mysqli_error($_SESSION["dbconn"]));
-
-
-
-                    $q .=   "INSERT IGNORE INTO uploaders VALUES ('"
+                    /*
+                        query 1: add uploader id to the video's db record 
+                    */
+                    $q .=   "UPDATE videos SET uploader='".$j->items[0]->snippet->channelId."' ".
+                            "WHERE id='".$row['id']."' AND uploader IS NULL; ".
+                    /* 
+                        query 2: try adding uploader id to 'uploader' table
+                    */
+                            "INSERT IGNORE INTO uploaders VALUES ('"
                             .$j->items[0]->snippet->channelId."','"
-                            .str_replace("'"," ",$j->items[0]->snippet->channelTitle)."'); ";  
-                    //$r = mysqli_query($_SESSION["dbconn"], $q2) or die($q2.' failed: ' . mysqli_error($_SESSION["dbconn"]));                
-                
-
-
-                    $q .=   "UPDATE uploaders SET name='".str_replace("'"," ",$j->items[0]->snippet->channelTitle).
-                                "' WHERE id='".$j->items[0]->snippet->channelId."' AND name IS NULL; ";
-                    //$r = mysqli_query($_SESSION["dbconn"], $q3) or die($q3.' failed: ' . mysqli_error($_SESSION["dbconn"]));
+                            .str_replace("'"," ",$j->items[0]->snippet->channelTitle)."'); ". 
+                    /* 
+                        query 3: try updating if it already existed and had no 'name' field
+                    */
+                            "UPDATE uploaders SET name='".str_replace("'"," ",$j->items[0]->snippet->channelTitle).
+                            "' WHERE id='".$j->items[0]->snippet->channelId."' AND name IS NULL; ";
 
                 };
-
 
                 $q .= "COMMIT;";
 
@@ -396,15 +397,6 @@
 
             setMissingUploader($sql_result);            
  
-
-
-
-
-
-
-
-
-
 
             unset($row);
            
