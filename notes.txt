@@ -4,23 +4,37 @@ to-do:
     - ensure proper security...
         - utilize some session handling (for security)
     - huge overhaul for the YT crawler
-    - add new tables to x_doom db: authors, speedrunners, trusted uploaders(?)   
-
+    - add new tables to x_doom db: authors, speedrunners, trusted uploaders(?)
+    - store Reddit auth-token in session
+        - something similar for MAL login, too
+    - put EVERY CUSTOM SESSION VAR into a specified array
+        - I must not lose track of them... 
+    - MAL: somehow managing $url_user only to be queried once
+        - store in a session and check if the corresponding val is empty
 
 - medium priority:
     - extend MAL watchlist viewer with proper features
     - update cronjob (not visible on GitHub due to plaintext password contained)
         - multi-thread cronjob
     - hide login inputs when AJAX request is sent
-    - hide login inputs if you're already logged in
+    - send authentication only if it hasn't happened so far    
+        - also hide login inputs if you're already logged in
     - Reddit statistics database (for reader amounts at least)
     - SCP database(?) 
+    - db_doom: dictionary for allowed and forbidden parameters
 
 - low priority:
     - some CSS design for some proper look
     - start differentiating beta/unstable vs public/master 
         - different branch in Git?
     - document and template "keys.php"
+    - lock /hostinger scripts on other sites completely
+        - or make it more flexible? enormous, yes potentially worthy job...
+    - add async loading: counter, "please wait" text, etc
+
+
+
+
 
 
 - done:

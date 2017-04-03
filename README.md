@@ -9,12 +9,15 @@ that I do not share in this repo due to safety concerns, I'm quite unsure about 
 capabilities of this server on localhost so far.
 
 In the future, I'm going to solve it - until that, consider this repo as the source code of
-                                                                https://www.katamori.16mb.com
+                                                                http://www.katamori.16mb.com
 
 -------------------------------------------
 
 Some very-very simple documentation on the structure of the server, to make myself, and potentially,
 anyone downloading it from GitHub a bit less confused on the usage of it.
+
+- first of all: the site contains *very little* HTML content and almost entirely lacks CSS so far
+    - the reason behind it is that currently I'm focusing on backend functionality with all my capacities
 
 - index.php has the obvious function: that is a main page.
     - it's fairly possible I'll make it back to a simple plain HTML as I have no need to use php there.

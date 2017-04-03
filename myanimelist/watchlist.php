@@ -43,22 +43,11 @@
         <br>
 
         <?php
-        
-           /*
-
-                to-do:
-                - send authentication only if it hasn't happened so far
-                    -> that needs an additional, non-auth HTTP request that I'd rather do later
-                - get auth credentials from an HTML form
-                    -> I simply mustn't upload this shit to GitHub before that!!!
-                - add async loading: counter, "please wait" text, etc
-                - somehow managing $url_user only to be queried once
-                    - maybe once in a session? would make sense
-
-            */
-
 
             /*
+
+                to-do used to be here; migrated to "notes.txt" @ 03:54, 2017-04-03
+
                 list item class definition
             */
 
