@@ -10,14 +10,17 @@
         $pw = htmlspecialchars($_POST["mal_pw"]);
 
         // Create a stream
-        $_SESSION["http_auth"] = array(
+        $context = array(
             'http'=>array(
                 'method' => "GET",
                 'header' => "Authorization: Basic " . base64_encode($login.':'.$pw)                 
             )
         );
 
-        $_SESSION['mal_username'] = $login;
+        $_SESSION['custom']['mal'] = array(
+            'http_auth' => $context,
+            'user' => $login
+        );
 
         //manual switch link because my host
         $message = 

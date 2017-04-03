@@ -91,17 +91,17 @@
 
             $url_auth = 'https://myanimelist.net/api/account/verify_credentials.xml';
             $url_search = 'https://myanimelist.net/api/anime/search.xml?q=Kemonozume';
-            $url_user = 'https://myanimelist.net/malappinfo.php?u='.$_SESSION['mal_username'].'&status=2&type=anime';
+            $url_user = 'https://myanimelist.net/malappinfo.php?u='.$_SESSION['custom']['mal']['user'].'&status=2&type=anime';
 
             // Open the file using the HTTP headers set above
             $url = $url_user; 
-            $xml = file_get_contents($url, false, stream_context_create($_SESSION["http_auth"]));    
+            $xml = file_get_contents($url, false, stream_context_create($_SESSION['custom']['mal']['http_auth']));    
             //$xml = file_get_contents("./mal_tempxml.xml");
 
             $parser = xml_parser_create();
             xml_parse_into_struct($parser, $xml, $array);
             xml_parser_free($parser);            
-            echo "Anime list of ".$_SESSION['mal_username']." gathered from MAL!<br><br>";
+            echo "Anime list of ".$_SESSION['custom']['mal']['user']." gathered from MAL!<br><br>";
             //print("<pre>".print_r($array,true)."</pre>");
 
 
@@ -171,7 +171,7 @@
                 //query about the anime itself
                 $tempxml = file_get_contents(
                     "https://myanimelist.net/api/anime/search.xml?q=" . str_replace(" ","+",$value->title), 
-                    false, stream_context_create($_SESSION["http_auth"]));
+                    false, stream_context_create($_SESSION['custom']['mal']['http_auth']));
 
                 $p = xml_parser_create();
                 xml_parse_into_struct($p, $tempxml, $temp_array);

@@ -7,8 +7,6 @@ to-do:
     - add new tables to x_doom db: authors, speedrunners, trusted uploaders(?)
     - store Reddit auth-token in session
         - something similar for MAL login, too
-    - put EVERY CUSTOM SESSION VAR into a specified array
-        - I must not lose track of them... 
     - MAL: somehow managing $url_user only to be queried once
         - store in a session and check if the corresponding val is empty
 
@@ -38,7 +36,8 @@ to-do:
 
 
 - done:
-    - fix MAL script on server [apparently done]
+    - fix MAL script on server
+    - put EVERY CUSTOM SESSION VAR into a specified array
 
 
 -------------------------------------------------------------
@@ -55,19 +54,44 @@ annyit csak hogy milyen szavak kerülnek elő, vágod
 
 -------------------------------------------------------------
 
+Supplementary code:
+
+    php:
+
+        1) secure SQL query, source: http://stackoverflow.com/a/60496/2320153
+
+        $stmt = $dbConnection->prepare('SELECT * FROM employees WHERE name = ?');
+        $stmt->bind_param('s', $name);
+
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+        while ($row = $result->fetch_assoc()) {
+            // do something with $row
+        }    
 
 
-php code examples:
 
-1) secure SQL query, source: http://stackoverflow.com/a/60496/2320153
 
-$stmt = $dbConnection->prepare('SELECT * FROM employees WHERE name = ?');
-$stmt->bind_param('s', $name);
+    MySQL:
 
-$stmt->execute();
+        1) update on join
 
-$result = $stmt->get_result();
-while ($row = $result->fetch_assoc()) {
-    // do something with $row
-}    
+        UPDATE  t1
+        LEFT JOIN
+                t2
+        ON      t2.id = t1.id
+        SET     t1.col1 = newvalue
+        WHERE   t2.id IS NULL
 
+
+
+        2) similar for SELECT
+
+        SELECT  t1.*
+        FROM    t1
+        WHERE   t1.id NOT IN
+                (
+                SELECT  id
+                FROM    t2
+                )        

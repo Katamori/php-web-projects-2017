@@ -4,9 +4,13 @@
 
     if (isset($_POST["hostinger_login"]) && isset($_POST["hostinger_pw"]) && isset($_POST["hostinger_db"])) {
 
-        $_SESSION["dblogin"] = htmlspecialchars($_POST["hostinger_login"]);
-        $_SESSION["dbpw"] = htmlspecialchars($_POST["hostinger_pw"]);
-        $_SESSION["dbname"] = "u373989137_".$_POST["hostinger_db"];
+        $_SESSION['custom']['db'] = array(
+
+            'name' => "u373989137_".$_POST["hostinger_db"],
+            'login' => htmlspecialchars($_POST["hostinger_login"]),
+            'pw' => htmlspecialchars($_POST["hostinger_pw"])
+
+        );
 
         //manual switch link because my host
         $message = 

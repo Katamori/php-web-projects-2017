@@ -11,7 +11,15 @@
 
     session_start();
 
-    $_SESSION["dbconn"]  = mysqli_connect("mysql.hostinger.co.uk", $_SESSION["dblogin"], $_SESSION["dbpw"]);
-    mysqli_select_db($_SESSION["dbconn"], $_SESSION["dbname"]) or die("Unable to select database.");
+    $connection = 
+        mysqli_connect(
+            "mysql.hostinger.co.uk", 
+            $_SESSION['custom']['db']['login'], 
+            $_SESSION['custom']['db']['pw']);
+
+    mysqli_select_db(
+        $connection, 
+        $_SESSION['custom']['db']['name']) 
+    or die("Unable to select database.");
 
 ?>

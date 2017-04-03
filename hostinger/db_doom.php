@@ -2,11 +2,11 @@
     session_start();
     require("../hostinger/dbjoin.php");
 
-    if ($_SESSION["dbname"] != "u373989137_doom"){
+    if ($_SESSION['custom']['db']['name'] != "u373989137_doom"){
         echo "Database is either not selected or the wrong one is selected! <br>".
              "Thus, for safety reasons, php scripts are terminated. Log in again!";
         exit();
-    }
+    };
 ?>
 
 <!DOCTYPE html>
@@ -202,7 +202,7 @@
 
 
 
-            function setMissingUploader($sql_query_result){
+            function setMissingUploader($c, $sql_query_result){
 
 
                 $q = "START TRANSACTION; ";
@@ -233,7 +233,7 @@
 
                 $q .= "COMMIT;";
 
-                $r = mysqli_multi_query($_SESSION["dbconn"], $q) or die($q.' failed: ' . mysqli_error($_SESSION["dbconn"]));
+                $r = mysqli_multi_query($c, $q) or die($q.' failed: ' . mysqli_error($c));
 
             };
 
@@ -244,8 +244,8 @@
 
 
                 $query = 'SELECT * FROM videos ORDER BY distance DESC LIMIT 0, 5';
-                $sql_result = mysqli_query($_SESSION["dbconn"], $query) 
-                                or die($query.' failed: ' . mysqli_error($_SESSION["dbconn"]));     
+                $sql_result = mysqli_query($connection, $query) 
+                                or die($query.' failed: ' . mysqli_error($connection));     
 
 
                 echo "<table>";
@@ -336,8 +336,8 @@
 /*
 
             $query = "SELECT * FROM videos WHERE checked <> 0 AND ".$query_d2only.$limit;
-            $sql_result = mysqli_query($_SESSION["dbconn"], $query) 
-                        or die($query.' failed: ' . mysqli_error($_SESSION["dbconn"]));   
+            $sql_result = mysqli_query($connection, $query) 
+                        or die($query.' failed: ' . mysqli_error($connection));   
 
             //according to certain parameters, do changes
             while($row = mysqli_fetch_assoc($sql_result)) {
@@ -364,10 +364,10 @@
                         "INSERT IGNORE INTO uploaders (id) VALUES ('".$item_array->snippet->channelId."')";
 
 
-                    $result = mysqli_query($_SESSION["dbconn"], $query) 
-                                or die($query.' failed: ' . mysqli_error($_SESSION["dbconn"]));
-                    $result = mysqli_query($_SESSION["dbconn"], $query_b) 
-                                or die($query.' failed: ' . mysqli_error($_SESSION["dbconn"]));                                
+                    $result = mysqli_query($connection, $query) 
+                                or die($query.' failed: ' . mysqli_error($connection));
+                    $result = mysqli_query($connection, $query_b) 
+                                or die($query.' failed: ' . mysqli_error($connection));                                
 
 
                 }
@@ -375,8 +375,8 @@
 
                 //set the source column "checked"
                 $query = "UPDATE videos SET checked = 1 WHERE id = '".$row['id']."'";
-                $result = mysqli_query($_SESSION["dbconn"], $query) 
-                            or die($query.' failed: ' . mysqli_error($_SESSION["dbconn"]));                 
+                $result = mysqli_query($connection, $query) 
+                            or die($query.' failed: ' . mysqli_error($connection));                 
 
 
                 //echo $query.'<br>';
@@ -394,11 +394,11 @@
             */
 
             $query = "SELECT * FROM videos WHERE uploader IS NULL ORDER BY distance LIMIT 0, 50";
-            $sql_result = mysqli_query($_SESSION["dbconn"], $query) 
-                        or die($query.' failed: ' . mysqli_error($_SESSION["dbconn"]));          
+            $sql_result = mysqli_query($connection, $query) 
+                        or die($query.' failed: ' . mysqli_error($connection));          
 
 
-            setMissingUploader($sql_result);            
+            setMissingUploader($connection ,$sql_result);            
  
 
             unset($row);
@@ -406,7 +406,7 @@
 
 
 
-            //mysqli_close($_SESSION["dbconn"]);
+            mysqli_close($connection);
 
         ?>
 
