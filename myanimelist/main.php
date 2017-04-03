@@ -20,7 +20,7 @@
     <body>
         <?php 
             echo "Well, dear ".$_SESSION['mal_username'].", one day this is gonna be some a proper MAL interface.<br>".
-                 '<a href="index.php">Back to the main page.</a>';
+                 '<a href="../index.php">Back to the main page.</a>';
         ?>       
     </body>
 

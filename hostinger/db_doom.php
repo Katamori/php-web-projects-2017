@@ -120,7 +120,10 @@
 
         <h1> Collection of Youtube videos about Doom </h1>
 
-        <h2>Sorry, but to allow *any* DB change, you must log in again.</h2>
+        <p>SQL queries performed, connection closed. Use login data below to repeat.</p>
+        <br>
+        <p>BTW, I may print out the exact queries themselves if there's a need for it.</p>
+        <br>
 
 		<form action="" method="post" id="repeat_form">
 

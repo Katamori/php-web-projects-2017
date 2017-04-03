@@ -20,7 +20,7 @@
     <body>
         <?php 
             echo "Sorry, ".$_SESSION['mal_username'].", this feature is not implemented yet.<br>".
-                 '<a href="index.php">Back to the main page.</a>';
+                 '<a href="../index.php">Back to the main page.</a>';
         ?>       
     </body>
 
