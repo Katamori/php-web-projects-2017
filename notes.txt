@@ -3,12 +3,15 @@ to-do:
 - high priority:
     - ensure proper security...
         - utilize some session handling (for security)
+        - use MD5
+        - prevent outer access of certain files
     - huge overhaul for the YT crawler
     - add new tables to x_doom db: authors, speedrunners, trusted uploaders(?)
-    - store Reddit auth-token in session
-        - something similar for MAL login, too
     - MAL: somehow managing $url_user only to be queried once
         - store in a session and check if the corresponding val is empty
+    - provide relog attempts 
+    - make logout possible
+    - if logged in, still be able to choice landing site
 
 - medium priority:
     - extend MAL watchlist viewer with proper features
@@ -20,6 +23,8 @@ to-do:
     - Reddit statistics database (for reader amounts at least)
     - SCP database(?) 
     - db_doom: dictionary for allowed and forbidden parameters
+    - Reddit: /r/RoastMe viewer: picture, and comments besides
+    - Reddit: something with /r/worldbuilding
 
 - low priority:
     - some CSS design for some proper look
@@ -38,7 +43,8 @@ to-do:
 - done:
     - fix MAL script on server
     - put EVERY CUSTOM SESSION VAR into a specified array
-
+        - store Reddit auth-token in session
+            - something similar for MAL login, too
 
 -------------------------------------------------------------
 
@@ -94,4 +100,10 @@ Supplementary code:
                 (
                 SELECT  id
                 FROM    t2
-                )        
+                )    
+
+
+    misc/random:
+
+       MAL auth link: 'https://myanimelist.net/api/account/verify_credentials.xml';
+       MAL search example: 'https://myanimelist.net/api/anime/search.xml?q=Kemonozume';    

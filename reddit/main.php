@@ -29,7 +29,24 @@
         $rcontext = stream_context_create($authparams);
 
         $result = file_get_contents("https://www.reddit.com/api/v1/access_token", false, $rcontext);
-        print("<pre>".print_r($result,true)."</pre>");        
+        print("<pre>".print_r($result,true)."</pre>");   
+
+        if(isset($_SESSION['custom']['reddit']) && 
+           isset($_SESSION['custom']['reddit']['token'])){
+
+            $_SESSION['custom']['reddit']['token'] = $result->access_toke;
+
+        }else{
+            
+            $_SESSION['custom']['reddit'] = array(
+
+                'token' => $result->access_token,
+
+            );            
+
+        };
+
+     
 
     ?>
 

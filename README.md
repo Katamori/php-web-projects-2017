@@ -18,18 +18,24 @@ anyone downloading it from GitHub a bit less confused on the usage of it.
 
 Technical info:
 
-    - the site contains *very little* HTML content and almost entirely lacks CSS so far
-        - the reason behind it is that currently I'm focusing on backend functionality with all my capacities
-    - sessions defined by myself are stored in $_SESSION['custom']
+- the site contains *quite little* HTML content and almost entirely lacks CSS so far
+    - the reason behind it is that currently I'm focusing on backend functionality with all my capacities
+- sessions defined by myself are stored in $_SESSION['custom']
 
 Descriptions themselves:
 
 - index.php has the obvious function: that is a main page.
     - it's fairly possible I'll make it back to a simple plain HTML as I have no need to use php there.
-    - currently, index.php also contains two login forms instead of redirect.
+
+- login.php contains two login forms to various services
+    - login forms do not appear if according to the session variables, the user is logged in
+
 - the original project contains a "php" folder as well, which is ignored by Git by security reasons.
     - a "keys.php" file must exist here, though, otherwise certain features won't work
         - I'm definitely to add some description about it in the future
+
+- /html_blocks contains code parts to be echoed by php under certain sufficient conditions
+    - currently it contains only two login forms to be loaded later
 
 - /hostinger folder contains the stuff I design to be used from remote access at katamori.16mb.com
     - index.php contains a login form that sends database login info to "/hostinger/redirect.php"

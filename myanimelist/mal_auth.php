@@ -19,7 +19,8 @@
 
         $_SESSION['custom']['mal'] = array(
             'http_auth' => $context,
-            'user' => $login
+            'user' => $login,
+            'user_xml' => '' /* will be defined in watchlist.php */ 
         );
 
         //manual switch link because my host

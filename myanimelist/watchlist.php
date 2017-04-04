@@ -1,6 +1,10 @@
 <?php 
-    //require("../php/dbjoin.php"); 
     session_start();
+
+    if(!isset($_SESSION['custom']['mal'])){
+        echo 'MyAnimeList authorization did not happened! Log in properly.';
+        exit();
+    }
 ?>
 
 <!DOCTYPE html>
@@ -25,13 +29,8 @@
 		<script>
 
 
-
-
 		</script>		
 	</head>
-
-
-
 
 
 	<body>
@@ -63,9 +62,6 @@
             };
 
 
-
-
-
             /*
                 doing the "query"
 
@@ -89,21 +85,26 @@
 
             */
 
-            $url_auth = 'https://myanimelist.net/api/account/verify_credentials.xml';
-            $url_search = 'https://myanimelist.net/api/anime/search.xml?q=Kemonozume';
-            $url_user = 'https://myanimelist.net/malappinfo.php?u='.$_SESSION['custom']['mal']['user'].'&status=2&type=anime';
 
-            // Open the file using the HTTP headers set above
-            $url = $url_user; 
-            $xml = file_get_contents($url, false, stream_context_create($_SESSION['custom']['mal']['http_auth']));    
-            //$xml = file_get_contents("./mal_tempxml.xml");
+
+
+            if($_SESSION['custom']['mal']['user_xml'] == ''){
+
+                $url_user = 'https://myanimelist.net/malappinfo.php?u='.$_SESSION['custom']['mal']['user'].'&status=2&type=anime';
+                $xml = file_get_contents($url_user, false, stream_context_create($_SESSION['custom']['mal']['http_auth']));    
+                echo "Anime list of ".$_SESSION['custom']['mal']['user']." gathered from MAL!<br><br>";
+                
+            }else{
+
+                $xml = $_SESSION['custom']['mal']['user_xml'];
+                echo $_SESSION['custom']['mal']['user']."'s anime list loaded from session. No new data has been downloaded";
+            
+            }
 
             $parser = xml_parser_create();
             xml_parse_into_struct($parser, $xml, $array);
-            xml_parser_free($parser);            
-            echo "Anime list of ".$_SESSION['custom']['mal']['user']." gathered from MAL!<br><br>";
+            xml_parser_free($parser);   
             //print("<pre>".print_r($array,true)."</pre>");
-
 
 
             /*
