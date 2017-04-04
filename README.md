@@ -18,9 +18,9 @@ anyone downloading it from GitHub a bit less confused on the usage of it.
 
 Technical info:
 
-- the site contains *quite little* HTML content and almost entirely lacks CSS so far
+- the site utilizes php in majority in the codebase, containing *quite little* HTML and nearly zero CSS so far
     - the reason behind it is that currently I'm focusing on backend functionality with all my capacities
-- sessions defined by myself are stored in $_SESSION['custom']
+- sessions defined by myself and/or the programs are stored in $_SESSION['custom']
 
 Descriptions themselves:
 

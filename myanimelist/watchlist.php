@@ -5,6 +5,57 @@
         echo 'MyAnimeList authorization did not happened! Log in properly.';
         exit();
     }
+
+
+    /*
+        DEFINITION OF COMMON FUNCTIONS
+    */
+
+    /*
+        input 1: string, used in MAL search
+        input 2: WatchListItem object that'll be uploaded with the sufficient data
+        input 3: stream context for the connection; may be removed in the future
+    */
+    function addAnimeFromSearch($animetitle, $watchlistitem, $streamcontext){
+
+        $nameasquery = str_replace(" ","+", $animetitle);
+        //query about the anime itself
+        $tempxml = file_get_contents(
+            "https://myanimelist.net/api/anime/search.xml?q=" . $nameasquery, 
+            false, $streamcontext);
+
+        $p = xml_parser_create();
+        xml_parse_into_struct($p, $tempxml, $temp_array);
+        xml_parser_free($p); 
+                        
+
+
+
+
+
+        foreach ($temp_array as &$inner_value) {
+            if($inner_value["type"] == "complete"){
+                    switch($inner_value["tag"]){
+                        case "ID":          $watchlistitem->db_id = $inner_value["value"];         break;
+                        case "TITLE":       $watchlistitem->title = $inner_value["value"];         break;
+                        case "SCORE":       $watchlistitem->mal_score = $inner_value["value"];     break;
+                        case "TYPE":        $watchlistitem->type = $inner_value["value"];          break;
+                        case "EPISODES":    $watchlistitem->episodes = $inner_value["value"];      break;                                    
+                        case "IMAGE":       $watchlistitem->img = $inner_value["value"];           break;
+                        case "START_DATE":  $watchlistitem->date_start = $inner_value["value"];    break;
+                    }
+        /*
+            this case means that the end of an XML "portion" is reached
+            so we exit completely - we need only the first block
+            
+            the reason is that I give full names to the query
+            that must be precise enough for finding the item as a first result 
+        */
+            }elseif($inner_value["type"] == "close"){ break; };
+        }
+
+    };
+    
 ?>
 
 <!DOCTYPE html>
@@ -159,49 +210,27 @@
             unset($value);      //break the reference with the last element
             unset($array);      //It'd only consume resources at this point, tbh
 
-
+            $_SESSION['custom']['mal']['watchlist'] = $items;
 
           
             echo("<table>");    //table output
 
-            for($j=0; $j<10; $j++){ $value = $items[$j];
+            //these two lines are temporary restrictions due to php execution time limit at my host
+            for($j=0; $j<10; $j++){
+                $value = $items[$j];
             //foreach($items as $value){
                 //echo $value->title." (btw ".var_dump($options).") <br>";
 
-
-                //query about the anime itself
-                $tempxml = file_get_contents(
-                    "https://myanimelist.net/api/anime/search.xml?q=" . str_replace(" ","+",$value->title), 
-                    false, stream_context_create($_SESSION['custom']['mal']['http_auth']));
-
-                $p = xml_parser_create();
-                xml_parse_into_struct($p, $tempxml, $temp_array);
-                xml_parser_free($p); 
-                                
-
-
-
- 
-
-                foreach ($temp_array as &$inner_value) {
-                    if($inner_value["type"] == "complete"){
-                            switch($inner_value["tag"]){
-                                case "ID":          $value->db_id = $inner_value["value"];         break;
-                                case "TITLE":       $value->title = $inner_value["value"];         break;
-                                case "SCORE":       $value->mal_score = $inner_value["value"];     break;
-                                case "TYPE":        $value->type = $inner_value["value"];          break;
-                                case "EPISODES":    $value->episodes = $inner_value["value"];      break;                                    
-                                case "IMAGE":       $value->img = $inner_value["value"];           break;
-                                case "START_DATE":  $value->date_start = $inner_value["value"];    break;
-                            }
-                    //this case means that the end of an XML "portion" is reached
-                    //so we exit completely - we need only the first block
-                    }elseif($inner_value["type"] == "close"){ break; };
-                }
-
+                addAnimeFromSearch($value->title, $value, stream_context_create($_SESSION['custom']['mal']['http_auth']));
 
                 //the print-out part
                 echo("<tr>" .
+                        "<td>".
+                            "<form action='../myanimelist/anime_browser.php'>".
+                                "<input type='hidden' value='".$nameasquery."' name='title'>".
+                                "<input type='submit' value='More information'>".
+                            "</form>".
+                        "</td>" .                
                         "<td>" . $value->db_id . "</td>" .                 
                         "<td>" . $value->title . "</td>" .
                         "<td>" . $value->mal_score . "</td>" . 
