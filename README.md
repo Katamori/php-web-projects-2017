@@ -44,7 +44,6 @@ Descriptions themselves:
         - it is done by jQuery, which occasionally turn the "submit" event listener on and off
 
 - /myanimelist contains stuff I want to do with the MyAnimeList.net API
-    - "index.php" contains the login form that then tries establishing authorization via "/myanimelist/mal_auth.php"
+    - "login.php" contains the login form that then tries establishing authorization via "/myanimelist/mal_auth.php"
         - "/myanimelist/mal_auth.php" gets the redirect "names" through the dropdown list's names
-        - moreover, this file must not contain any additional HTML code 
-    - after login "/myanimelist/watchlist.php" lists the user's anime watchlist
+    - "/myanimelist/watchlist.php", if used after auth, lists the user's anime watchlist

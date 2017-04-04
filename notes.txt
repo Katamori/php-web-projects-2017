@@ -7,8 +7,6 @@ to-do:
         - prevent outer access of certain files
     - huge overhaul for the YT crawler
     - add new tables to x_doom db: authors, speedrunners, trusted uploaders(?)
-    - MAL: somehow managing $url_user only to be queried once
-        - store in a session and check if the corresponding val is empty
     - provide relog attempts 
     - make logout possible
     - if logged in, still be able to choice landing site
@@ -25,6 +23,7 @@ to-do:
     - db_doom: dictionary for allowed and forbidden parameters
     - Reddit: /r/RoastMe viewer: picture, and comments besides
     - Reddit: something with /r/worldbuilding
+    - imgur mosaic experiment with API
 
 - low priority:
     - some CSS design for some proper look
@@ -42,22 +41,12 @@ to-do:
 
 - done:
     - fix MAL script on server
+        - context: it was broken...
     - put EVERY CUSTOM SESSION VAR into a specified array
         - store Reddit auth-token in session
             - something similar for MAL login, too
-
--------------------------------------------------------------
-
-
-Project ideas:
-
-Zoltán Schmidt, [23.03.17 01:21]
-dee az is megteszi hogy lekapom mindenféle hírportálról a híreket, timestamppel, 
-és napra, sőt órára lebontva szöveg szerinti elemzést baszatok rá
-
-Zoltán Schmidt, [23.03.17 01:22]
-annyit csak hogy milyen szavak kerülnek elő, vágod
-
+    - MAL: somehow managing $url_user only to be queried once
+        - store in a session and check if the corresponding val is empty
 -------------------------------------------------------------
 
 Supplementary code:
