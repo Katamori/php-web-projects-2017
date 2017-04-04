@@ -9,7 +9,7 @@ to-do:
     - add new tables to x_doom db: authors, speedrunners, trusted uploaders(?)
     - provide relog attempts 
     - make logout possible
-    - if logged in, still be able to choice landing site
+    - if logged in, still be able to choose landing site
 
 - medium priority:
     - extend MAL watchlist viewer with proper features
@@ -24,6 +24,8 @@ to-do:
     - Reddit: /r/RoastMe viewer: picture, and comments besides
     - Reddit: something with /r/worldbuilding
     - imgur mosaic experiment with API
+    - Reddit: usable search interface
+    - Stack Exchange site expansion monitor
 
 - low priority:
     - some CSS design for some proper look
@@ -33,6 +35,7 @@ to-do:
     - lock /hostinger scripts on other sites completely
         - or make it more flexible? enormous, yes potentially worthy job...
     - add async loading: counter, "please wait" text, etc
+    - try some oop maybe
 
 
 

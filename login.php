@@ -30,21 +30,36 @@
 		<p>Note: I don't steal your data, but have no idea about security either. <br>
 			If you afraid using your password here, who am I to blame...</p>
 
-		<?php 
+		<form action="../myanimelist/mal_auth.php" method="post">
 
-		/*
-			optional write-out of login form
-		*/
+			<?php 
 
-			$temp = $_SESSION['custom']['mal']['user'];
+			/*
+				optional write-out of login form
+			*/
 
-			if(isset($temp) && $temp != ""){
-				echo 'You\'re already logged in, <a href="../myanimelist/main.php">click here for the front page.</a> ';
-			}else{ 
-				readfile('./html_blocks/login_mal.html'); 
-			};
+				$temp = $_SESSION['custom']['mal']['user'];
 
-		?>
+				if(isset($temp) && $temp != ""){
+					echo 'You\'re already logged in, choose an option below to proceed.';
+				}else{ 
+					readfile('./html_blocks/login_mal.html'); 
+				};
+
+			?>
+
+			Choose action: <br>
+			<select name="mal_action">
+				<option value="main">Main page (not implemented yet)</option>				
+				<option value="watchlist">Custom watchlist</option>
+				<option value="unidentified">RESERVED</option>
+				<option value="unidentified">RESERVED</option>
+				<option value="unidentified">RESERVED</option>
+			</select>
+			<br>
+
+			<input type="submit">
+		</form> 
 
 
 	</div>
