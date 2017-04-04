@@ -2,20 +2,19 @@ to-do:
 
 - high priority:
     - ensure proper security...
-        - utilize some session handling (for security)
+        - use cookies to store encrypted pw (crypt key on db maybe)
         - use MD5
         - prevent outer access of certain files
+        - manual SQL writer with preventing injection
     - huge overhaul for the YT crawler
     - add new tables to x_doom db: authors, speedrunners, trusted uploaders(?)
     - provide relog attempts 
     - make logout possible
-    - if logged in, still be able to choose landing site
 
 - medium priority:
     - extend MAL watchlist viewer with proper features
     - update cronjob (not visible on GitHub due to plaintext password contained)
         - multi-thread cronjob
-    - hide login inputs when AJAX request is sent
     - send authentication only if it hasn't happened so far    
         - also hide login inputs if you're already logged in
     - Reddit statistics database (for reader amounts at least)
@@ -50,6 +49,9 @@ to-do:
             - something similar for MAL login, too
     - MAL: somehow managing $url_user only to be queried once
         - store in a session and check if the corresponding val is empty
+    - if logged in, still be able to choose landing site
+    - db_doom: hide login inputs when AJAX request is sent
+
 -------------------------------------------------------------
 
 Supplementary code:

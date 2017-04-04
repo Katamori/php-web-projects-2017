@@ -26,8 +26,9 @@
 		<script>
 
             function AJAXsubmission(){
-                
-                //source: http://stackoverflow.com/a/5004276/2320153
+
+                $("#placeholder").hide();              
+                //original: http://stackoverflow.com/a/5004276/2320153
 
                 // Variable to hold request
                 var request;
@@ -54,7 +55,10 @@
                         // Let's disable the inputs for the duration of the Ajax request.
                         // Note: we disable elements AFTER the form data has been serialized.
                         // Disabled form elements will not be serialized.
-                        $inputs.prop("disabled", true);
+                        // [Katamori: and personally I'd also hide the form]
+                        $inputs.prop("disabled", true);                  
+                        $form.hide();
+                        $("#placeholder").show();
 
                         // Fire off the request to /form.php
                         request = $.ajax({
@@ -83,6 +87,8 @@
                         request.always(function () {
                             // Reenable the inputs
                             $inputs.prop("disabled", false);
+                            $form.show();
+                            $("#placeholder").hide();
                         });
 
 
@@ -94,6 +100,7 @@
                                         
                 AJAXsubmission();
                 
+                //disable "submit" event listener depending on checkbox value
                 //warning: don't use it with multiple checkboxes!
                 $('#repeat_form :checkbox').change(function() {
                     // this will contain a reference to the checkbox   
@@ -138,7 +145,9 @@
             <input type="checkbox" name="ajax" checked> Use AJAX?
             <br> 
 			<input type="submit">
-		</form>            
+		</form>
+
+        <p id="placeholder">Please wait...</p>            
 
         <?php
 
