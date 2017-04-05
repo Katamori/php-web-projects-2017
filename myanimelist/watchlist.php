@@ -4,58 +4,10 @@
     if(!isset($_SESSION['custom']['mal'])){
         echo 'MyAnimeList authorization did not happened! Log in properly.';
         exit();
+    }else{
+        require('../myanimelist/common.php');
     }
 
-
-    /*
-        DEFINITION OF COMMON FUNCTIONS
-    */
-
-    /*
-        input 1: string, used in MAL search
-        input 2: WatchListItem object that'll be uploaded with the sufficient data
-        input 3: stream context for the connection; may be removed in the future
-    */
-    function addAnimeFromSearch($animetitle, $watchlistitem, $streamcontext){
-
-        $nameasquery = str_replace(" ","+", $animetitle);
-        //query about the anime itself
-        $tempxml = file_get_contents(
-            "https://myanimelist.net/api/anime/search.xml?q=" . $nameasquery, 
-            false, $streamcontext);
-
-        $p = xml_parser_create();
-        xml_parse_into_struct($p, $tempxml, $temp_array);
-        xml_parser_free($p); 
-                        
-
-
-
-
-
-        foreach ($temp_array as &$inner_value) {
-            if($inner_value["type"] == "complete"){
-                    switch($inner_value["tag"]){
-                        case "ID":          $watchlistitem->db_id = $inner_value["value"];         break;
-                        case "TITLE":       $watchlistitem->title = $inner_value["value"];         break;
-                        case "SCORE":       $watchlistitem->mal_score = $inner_value["value"];     break;
-                        case "TYPE":        $watchlistitem->type = $inner_value["value"];          break;
-                        case "EPISODES":    $watchlistitem->episodes = $inner_value["value"];      break;                                    
-                        case "IMAGE":       $watchlistitem->img = $inner_value["value"];           break;
-                        case "START_DATE":  $watchlistitem->date_start = $inner_value["value"];    break;
-                    }
-        /*
-            this case means that the end of an XML "portion" is reached
-            so we exit completely - we need only the first block
-            
-            the reason is that I give full names to the query
-            that must be precise enough for finding the item as a first result 
-        */
-            }elseif($inner_value["type"] == "close"){ break; };
-        }
-
-    };
-    
 ?>
 
 <!DOCTYPE html>
@@ -93,25 +45,6 @@
         <br>
 
         <?php
-
-            /*
-
-                to-do used to be here; migrated to "notes.txt" @ 03:54, 2017-04-03
-
-                list item class definition
-            */
-
-            class WatchlistItem {
-                public $db_id = null;
-                public $title = null;
-                public $type = null;
-                public $mal_score = null;
-                public $date_start = null;
-                public $runtime = null;
-                public $episodes = null;
-                public $img = null;
-            };
-
 
             /*
                 doing the "query"
@@ -193,15 +126,17 @@
                     case "close":
                         if($opened){
 
-             
-                            $temp_obj = new WatchlistItem();         //create the item-object
+                            //create the item-object
+                            $temp_obj = new WatchlistItem();         
                             $temp_obj->db_id = $temp_id;
                             $temp_obj->title = $temp_title;
 
                             $items[] = $temp_obj;
 
-
                             $opened = false;
+
+                            //store title in session, for further usage in another file
+                            $_SESSION['custom']['mal']['watchlist'][] = str_replace(" ","+", $temp_title);                    
                         }                          
                         break;
                 }
@@ -209,8 +144,6 @@
 
             unset($value);      //break the reference with the last element
             unset($array);      //It'd only consume resources at this point, tbh
-
-            $_SESSION['custom']['mal']['watchlist'] = $items;
 
           
             echo("<table>");    //table output
@@ -221,13 +154,13 @@
             //foreach($items as $value){
                 //echo $value->title." (btw ".var_dump($options).") <br>";
 
-                addAnimeFromSearch($value->title, $value, stream_context_create($_SESSION['custom']['mal']['http_auth']));
+                addAnimeFromSearch($value->title, $value);
 
                 //the print-out part
                 echo("<tr>" .
                         "<td>".
-                            "<form action='../myanimelist/anime_browser.php'>".
-                                "<input type='hidden' value='".$nameasquery."' name='title'>".
+                            "<form action='../myanimelist/anime_browser.php' method='post'>".
+                                "<input type='hidden' name='title' value='".str_replace(" ","+", $value->title)."'>".
                                 "<input type='submit' value='More information'>".
                             "</form>".
                         "</td>" .                

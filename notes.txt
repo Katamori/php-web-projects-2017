@@ -10,6 +10,9 @@ to-do:
     - add new tables to x_doom db: authors, speedrunners, trusted uploaders(?)
     - provide relog attempts 
     - make logout possible
+    - MAL: use variable variables for WatchListItem, for simpler declaration
+    - add titles for HTML files
+    - MAL: implement watchlist ordering, once and for all
 
 - medium priority:
     - extend MAL watchlist viewer with proper features
@@ -25,6 +28,10 @@ to-do:
     - imgur mosaic experiment with API
     - Reddit: usable search interface
     - Stack Exchange site expansion monitor
+    - MAL: regular search that can somehow redirect to anime_browser
+        - involved generalizing anime_browser "input" to a general list
+    - add scale to anime_browser
+        - needs some CSS work I guess
 
 - low priority:
     - some CSS design for some proper look
