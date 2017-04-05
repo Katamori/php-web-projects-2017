@@ -23,16 +23,15 @@
         $_SESSION['custom']['mal'] = array(
             'http_auth' => $context,
             'user' => $login,
-            'user_xml' => '', /* will be defined in watchlist.php */ 
-            'watchlist' => ''
+            'user_xml' => '' /* will be defined in watchlist.php */ 
+            //'watchlist' => ''
         );
 
         //manual switch link because my host
         $message = 
             'Authorization data prepared.<br>'.
             'Sadly though, my hosting service apparently forbids any kind of automatic redirection, <br>'.
-            'meaning that you must click on the link below to continue. I\'m working on some one-site <br>'.
-            'solutions that you can reach under /ajax/login.php - beginner webdevs\' misfortune, sorry!';
+            'meaning that you must click on the link below to continue - beginner webdevs\' misfortune, sorry!';
         echo $message.'<br><br><br>' 
             .'<a href="../myanimelist/'.$_POST["mal_action"].'.php">'
             .'Click here to be redirected to your desired site.</a>';

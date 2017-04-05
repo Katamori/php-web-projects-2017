@@ -14,6 +14,7 @@
 <html>
 
 	<head>
+        <title>Custom watchlist</title>
         <style>
             td {
 
@@ -72,19 +73,19 @@
 
 
 
-            if($_SESSION['custom']['mal']['user_xml'] == ''){
+            //if(isset($_SESSION['custom']['mal']['user_xml'])){
 
                 $url_user = 'https://myanimelist.net/malappinfo.php?u='.$_SESSION['custom']['mal']['user'].'&status=2&type=anime';
                 $xml = file_get_contents($url_user, false, stream_context_create($_SESSION['custom']['mal']['http_auth']));    
                 echo "Anime list of ".$_SESSION['custom']['mal']['user']." gathered from MAL!<br><br>";
-                
+      /*          
             }else{
 
                 $xml = $_SESSION['custom']['mal']['user_xml'];
                 echo $_SESSION['custom']['mal']['user']."'s anime list loaded from session. No new data has been downloaded";
             
             }
-
+*/
             $parser = xml_parser_create();
             xml_parse_into_struct($parser, $xml, $array);
             xml_parser_free($parser);   
@@ -134,9 +135,9 @@
                             $items[] = $temp_obj;
 
                             $opened = false;
-
+ 
                             //store title in session, for further usage in another file
-                            $_SESSION['custom']['mal']['watchlist'][] = str_replace(" ","+", $temp_title);                    
+                            $_SESSION['custom']['mal']['watchlist'][] = str_replace(" ","+", $temp_title);                   
                         }                          
                         break;
                 }
@@ -144,6 +145,8 @@
 
             unset($value);      //break the reference with the last element
             unset($array);      //It'd only consume resources at this point, tbh
+            //unset($items);
+            //unset($_SESSION['custom']['mal']['user_xml']);
 
           
             echo("<table>");    //table output

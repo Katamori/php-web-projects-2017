@@ -32,6 +32,7 @@ to-do:
         - involved generalizing anime_browser "input" to a general list
     - add scale to anime_browser
         - needs some CSS work I guess
+    - Code Golf SE: gather EVERY code and comments
 
 - low priority:
     - some CSS design for some proper look
