@@ -40,11 +40,24 @@
 	<body>
 
         <h1> Your MyAnimeList watchlist </h1>
-        <h2> The first xy elements of your watchlist</h2>
+        <h2> <?php echo 'The first '.$_POST['limit'].' elements of your watchlist'; ?></h2>
           
         <form method='post'> 
-            <input type="number" name="limit">  
-            <input type="submit" value="set limit"> 
+            <input type="number" value="10" name="limit">
+            <br>  
+			Sort by: <br>
+			<select name="sort">
+				<option value="db_id">MAL database id</option>				
+				<option value="title">Anime title</option>
+				<option value="mal_score">Rating by users</option>
+				<option value="type">Type</option>
+				<option value="date_start">Start date</option>
+
+			</select>
+            <br>
+            <input type="checkbox" name="order" checked> Increasing?
+            <br> 
+            <input type="submit" value="set limit">                         
         </form>
         <br>
 
@@ -157,11 +170,18 @@
 
 
 
-            function compare($a, $b){ return $a->mal_score*100 < $b->mal_score*100; };
-            usort($items, 'compare');
+            //the sorting
+            if(isset($_POST['sort'])){
 
+                function compare($a, $b){ 
+                    $member = $_POST['sort'];
+                    if(is_numeric($a->$member) ){ return (isset($_POST['order']) && $a->$member < $b->$member);
+                    }else{ return (isset($_POST['order']) && strcmp( strtolower($a->$member), strtolower($b->$member)));};
+                };
 
-
+                usort($items, 'compare');
+            };            
+       
 
             echo("<table>");    //table output
 
@@ -175,6 +195,7 @@
 
                 //the print-out part
                 echo("<tr>" .
+                        "<td>".($j+1)."</td>".
                         "<td>".
                             "<form action='../myanimelist/anime_browser.php' method='post'>".
                                 "<input type='hidden' name='title' value='".str_replace(" ","+", $value->title)."'>".
@@ -187,7 +208,7 @@
                         "<td>" . $value->type . "</td>" .
                         "<td>" . $value->episodes . "</td>" . 
                         "<td>" . $value->date_start . "</td>" .
-                        //"<td><img src='" . $value->img . "' height='128px'></img></td>" .                        
+                        "<td><img src='" . $value->img . "' height='192px'></img></td>" .                        
                     "</tr>"); 
            
             }
@@ -195,7 +216,7 @@
             echo("</table>");
 
             //store title in session, for further usage in another file
-            foreach($items as $value){ $_SESSION['custom']['mal']['watchlist'][] = str_replace(" ","+", $value->title); };            
+            foreach($items as $value){ array_push($_SESSION['custom']['mal']['watchlist'], str_replace(" ","+", $value->title)); };            
         ?>
 
 	</body>
