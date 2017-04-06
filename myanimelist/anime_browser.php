@@ -46,16 +46,7 @@
     <head>
         <title><?php echo 'Anime browser - '.str_replace("+"," ",$_POST['title']); ?></title>    
         <style>
-            td {
 
-                border-right: 1px solid #bbb;
-                border-bottom: 1px solid #bbb;                
-                /*overflow: hidden;
-                word-break: break-word;
-                vertical-align: top;
-
-                padding: 5px;*/
-            }
         </style>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -69,7 +60,7 @@
 
     <body>
 
-        <table>
+        <table style='width:100%;'>
             <tr>
                 <td>
                     <?php 
@@ -105,19 +96,22 @@
             
         </table>
 
-        <table>
+        <table style='width:100%;'>
             <tr>
                 <td>
-                    <img <?php echo "src='".$subject->img."'" ?> width='300px' alt='picture not loaded or found'>
+                    <img <?php echo "src='".$subject->img."'" ?> width='384px' alt='picture not loaded or found'>
                 </td>
                 <td>
-                    <?php echo "Series: ".$_POST['title'].", no.".$m.". in your watchlist.<br><br>".$subject->synopsis; ?>
-                    <br><br>
-                    <a href="../myanimelist/watchlist.php">Back to your watchlist</a>
+                    <?php echo 
+                        "Series: ".$_POST['title'].", no. ".$m.". in your watchlist.<br><br>".
+                        $subject->synopsis."<br><br>".
+                        "<a href='https://myanimelist.net/anime/".$subject->db_id."'>More information at MyAnimeList.net</a>";         
+                    ?>
                 </td>
             </tr>
         </table>
-
+        <br><br>
+        <a href="../myanimelist/watchlist.php">Back to your watchlist</a>
     </body>
 
 </html>

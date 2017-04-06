@@ -42,11 +42,15 @@
         <h1> Your MyAnimeList watchlist </h1>
         <h2> The first xy elements of your watchlist</h2>
           
-
+        <form method='post'> 
+            <input type="number" name="limit">  
+            <input type="submit" value="set limit"> 
+        </form>
         <br>
 
         <?php
 
+            $limit = $_POST['limit'];
             /*
                 doing the "query"
 
@@ -105,8 +109,10 @@
             $temp_id;
             $temp_title;
 
-
-            foreach ($array as &$value) {
+            $p=0;
+            for($q=0; $q<sizeof($array) && $p<$limit; $q++){
+                $value = $array[$q];
+            //foreach ($array as $value) {
 
                 switch($value["type"]){
 
@@ -132,12 +138,13 @@
                             $temp_obj->db_id = $temp_id;
                             $temp_obj->title = $temp_title;
 
+                            addAnimeFromSearch($temp_title, $temp_obj);
+
                             $items[] = $temp_obj;
 
                             $opened = false;
- 
-                            //store title in session, for further usage in another file
-                            $_SESSION['custom']['mal']['watchlist'][] = str_replace(" ","+", $temp_title);                   
+                            $p++;
+         
                         }                          
                         break;
                 }
@@ -148,16 +155,23 @@
             //unset($items);
             //unset($_SESSION['custom']['mal']['user_xml']);
 
-          
+
+
+            function compare($a, $b){ return $a->mal_score*100 < $b->mal_score*100; };
+            usort($items, 'compare');
+
+
+
+
             echo("<table>");    //table output
 
             //these two lines are temporary restrictions due to php execution time limit at my host
-            for($j=0; $j<10; $j++){
+            for($j=0; $j<$limit; $j++){
                 $value = $items[$j];
             //foreach($items as $value){
                 //echo $value->title." (btw ".var_dump($options).") <br>";
 
-                addAnimeFromSearch($value->title, $value);
+
 
                 //the print-out part
                 echo("<tr>" .
@@ -173,14 +187,15 @@
                         "<td>" . $value->type . "</td>" .
                         "<td>" . $value->episodes . "</td>" . 
                         "<td>" . $value->date_start . "</td>" .
-                        "<td><img src='" . $value->img . "'></img></td>" .                        
+                        //"<td><img src='" . $value->img . "' height='128px'></img></td>" .                        
                     "</tr>"); 
            
             }
 
             echo("</table>");
 
-
+            //store title in session, for further usage in another file
+            foreach($items as $value){ $_SESSION['custom']['mal']['watchlist'][] = str_replace(" ","+", $value->title); };            
         ?>
 
 	</body>

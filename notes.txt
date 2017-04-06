@@ -33,6 +33,7 @@ to-do:
     - add scale to anime_browser
         - needs some CSS work I guess
     - Code Golf SE: gather EVERY code and comments
+    - MAL: add my login for safe operations
 
 - low priority:
     - some CSS design for some proper look

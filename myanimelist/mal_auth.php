@@ -6,7 +6,22 @@
     /*
         THE PROCESS THAT SENDS YOU ON
     */
-    if (isset($_POST["mal_login"]) && isset($_POST["mal_pw"]) && isset($_POST["mal_action"])) {
+
+    //echo isset($_POST["mal_login"])."<br>";
+    //echo isset($_POST["mal_pw"])."<br>";
+    //echo isset($_POST["mal_action"])."<br>";
+    //echo isset($_SESSION['custom']['mal'])."<br>";
+
+    if(isset($_SESSION['custom']['mal'])){
+
+        //manual switch link because my host
+        $message = 
+            'Welcome back, '.$_SESSION['custom']['mal']['user'].'!';
+        echo $message.'<br><br><br>' 
+            .'<a href="../myanimelist/'.$_POST["mal_action"].'.php">'
+            .'Click here to be redirected to your desired site.</a>';
+
+    }elseif (isset($_POST["mal_login"]) && isset($_POST["mal_pw"]) && isset($_POST["mal_action"])) {
 
         //MAL HTTP authentication - source: http://stackoverflow.com/a/21565794/2320153
         $login = htmlspecialchars($_POST["mal_login"]);
@@ -23,8 +38,8 @@
         $_SESSION['custom']['mal'] = array(
             'http_auth' => $context,
             'user' => $login,
-            'user_xml' => '' /* will be defined in watchlist.php */ 
-            //'watchlist' => ''
+            'user_xml' => '', /* will be defined in watchlist.php */ 
+            'watchlist' => ''
         );
 
         //manual switch link because my host
@@ -36,7 +51,9 @@
             .'<a href="../myanimelist/'.$_POST["mal_action"].'.php">'
             .'Click here to be redirected to your desired site.</a>';
 
-    }
+    };
+
+
 
 
 ?>
