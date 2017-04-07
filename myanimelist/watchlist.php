@@ -5,6 +5,7 @@
         echo 'MyAnimeList authorization did not happened! Log in properly.';
         exit();
     }else{
+        readfile('./html_blocks/fork-me.html');        
         require('../myanimelist/common.php');
     }
 

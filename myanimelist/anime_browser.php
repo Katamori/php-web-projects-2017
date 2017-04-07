@@ -16,8 +16,8 @@
         print_r($_POST);
         exit();
     }else{ 
+        readfile('./html_blocks/fork-me.html');         
         require('../myanimelist/common.php');
-         
     }; 
 
 

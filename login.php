@@ -3,6 +3,7 @@
 
 	<?php 
 	    session_start();
+		readfile('./html_blocks/fork-me.html'); 
 	?>
 
 	<head>

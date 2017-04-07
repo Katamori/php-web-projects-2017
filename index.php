@@ -4,6 +4,7 @@
 	<?php 
 	    session_start();
         $_SESSION["custom"] = array();
+		readfile('./html_blocks/fork-me.html'); 
 	?>
 
 	<head>
@@ -25,10 +26,14 @@
 			<li>
 				<a href="login.php">Login for various services</a>			
 			</li>
-
+<!--
 			<li>
 				<a href="reddit/main.php">Custom Reddit front paae</a>			
 			</li>
+-->
+			<li>
+				<a href="code-golf.php">My code golf contributions to CodeGolf.SE</a>			
+			</li>			
 		</ol>
 
 		<?php

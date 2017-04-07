@@ -146,6 +146,8 @@
             <br> 
 			<input type="submit">
 		</form>
+        <br><br><br>
+        <form action="../php/execute_sql.php" method="get"><input type="submit" value="Execute SQL via php"></form>
 
         <p id="placeholder">Please wait...</p>            
 
