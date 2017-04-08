@@ -2,12 +2,12 @@
 
     session_start();
 
-    if (isset($_POST["hostinger_login"]) && isset($_POST["hostinger_pw"]) && isset($_POST["hostinger_db"])) {
+    if (isset($_POST["hostinger_pw"]) && isset($_POST["hostinger_db"])) {
 
         $_SESSION['custom']['db'] = array(
 
             'name' => "u373989137_".$_POST["hostinger_db"],
-            'login' => htmlspecialchars($_POST["hostinger_login"]),
+            'login' => "u373989137_".$_POST["hostinger_db"],
             'pw' => htmlspecialchars($_POST["hostinger_pw"])
 
         );

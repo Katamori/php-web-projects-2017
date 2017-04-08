@@ -45,6 +45,7 @@ to-do:
         - or make it more flexible? enormous, yes potentially worthy job...
     - add async loading: counter, "please wait" text, etc
     - try some oop maybe
+    - "pedig csinálhatnál egy character customise képernyőt ascii stílusban" by Atis
 
 
 
