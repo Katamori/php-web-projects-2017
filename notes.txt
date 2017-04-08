@@ -12,6 +12,7 @@ to-do:
     - make logout possible
     - MAL: use variable variables for WatchListItem, for simpler declaration
     - add titles for HTML files
+    - MAL: common login error check
 
 - medium priority:
     - extend MAL watchlist viewer with proper features
