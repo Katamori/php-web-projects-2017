@@ -40,9 +40,9 @@
 				optional write-out of login form
 			*/
 
-				$temp = $_SESSION['custom']['mal']['user'];
+				$temp = $_SESSION['custom']['mal']['logged_in'];
 
-				if(isset($temp) && $temp != ""){
+				if(isset($temp) && $temp != 0){
 					echo 'You\'re already logged in, choose an option below to proceed.';
 				}else{ 
 					readfile('./html_blocks/login_mal.html'); 
@@ -53,7 +53,7 @@
 			Choose action: <br>
 			<select name="mal_action">
 				<option value="main">Main page (not implemented yet)</option>				
-				<option value="watchlist">Custom watchlist</option>
+				<option value="watchlist" selected>Custom watchlist</option>
 				<option value="unidentified">RESERVED</option>
 				<option value="unidentified">RESERVED</option>
 				<option value="unidentified">RESERVED</option>

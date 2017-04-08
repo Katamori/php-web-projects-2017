@@ -1,16 +1,3 @@
-<?php 
-    session_start();
-
-    if(!isset($_SESSION['custom']['mal'])){
-        echo 'MyAnimeList authorization did not happened! Log in properly.';
-        exit();
-    }else{
-        readfile('./html_blocks/fork-me.html');        
-        require('../myanimelist/common.php');
-    }
-
-?>
-
 <!DOCTYPE html>
 <html>
 
@@ -41,30 +28,41 @@
 	<body>
 
         <h1> Your MyAnimeList watchlist </h1>
-        <h2> <?php echo 'The first '.$_POST['limit'].' elements of your watchlist'; ?></h2>
-          
-        <form method='post'> 
-            <input type="number" value="10" name="limit">
-            <br>  
-			Sort by: <br>
-			<select name="sort">
-				<option value="db_id">MAL database id</option>				
-				<option value="title">Anime title</option>
-				<option value="mal_score">Rating by users</option>
-				<option value="type">Type</option>
-				<option value="date_start">Start date</option>
-
-			</select>
-            <br>
-            <input type="checkbox" name="order" checked> Increasing?
-            <br> 
-            <input type="submit" value="set limit">                         
-        </form>
-        <br>
-
+    
         <?php
 
-            $limit = $_POST['limit'];
+            session_start();
+            readfile('../html_blocks/fork-me.html');
+
+            try{
+                //if this part of the code fails to work by any chance
+                if(!isset($_SESSION['custom']['mal'])){
+                    throw new Exception("You tried accessing this site without logging in.");
+                };   
+
+                //runs a test query that doesn't work without auth
+                $o = file_get_contents(
+                    "https://myanimelist.net/api/anime/search.xml?q=test", 
+                    false, 
+                    stream_context_create($_SESSION['custom']['mal']['http_auth']));
+
+                if($o === FALSE){ throw new Exception("HTTP request failed!");}; 
+
+
+                //beyond the errors:  
+                readfile('../html_blocks/mal_watchlist_input.html');    //add input              
+                require('../myanimelist/common.php');                   //load common calls
+                $_SESSION['custom']['mal']['logged_in'] = 1;            //make login state true
+                echo "Successfully logged in.";
+            }
+            
+            catch(Exception $e){
+                echo 'Not that fast! ' .$e->getMessage();
+                exit(); //to terminate everything else, as well
+            };
+
+
+            isset($_POST['limit']) ? $limit = $_POST['limit'] : $limit=10;
             /*
                 doing the "query"
 

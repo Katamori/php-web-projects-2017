@@ -12,7 +12,7 @@
     //echo isset($_POST["mal_action"])."<br>";
     //echo isset($_SESSION['custom']['mal'])."<br>";
 
-    if(isset($_SESSION['custom']['mal'])){
+    if($_SESSION['custom']['mal']['logged_in']===1){
 
         //manual switch link because my host
         $message = 
@@ -39,7 +39,8 @@
             'http_auth' => $context,
             'user' => $login,
             'user_xml' => '', /* will be defined in watchlist.php */ 
-            'watchlist' => ''
+            'watchlist' => array(),
+            'logged_in' => 0,
         );
 
         //manual switch link because my host
