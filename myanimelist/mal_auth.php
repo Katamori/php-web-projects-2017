@@ -24,20 +24,19 @@
     }elseif (isset($_POST["mal_login"]) && isset($_POST["mal_pw"]) && isset($_POST["mal_action"])) {
 
         //MAL HTTP authentication - source: http://stackoverflow.com/a/21565794/2320153
-        $login = htmlspecialchars($_POST["mal_login"]);
-        $pw = htmlspecialchars($_POST["mal_pw"]);
+        $auth_header = base64_encode(htmlspecialchars($_POST["mal_login"]).':'.htmlspecialchars($_POST["mal_pw"]));
 
         // Create a stream
         $context = array(
             'http'=>array(
                 'method' => "GET",
-                'header' => "Authorization: Basic " . base64_encode($login.':'.$pw)                 
+                'header' => "Authorization: Basic ".$auth_header                  
             )
         );
 
         $_SESSION['custom']['mal'] = array(
             'http_auth' => $context,
-            'user' => $login,
+            'user' => htmlspecialchars($_POST["mal_login"]),
             'user_xml' => '', /* will be defined in watchlist.php */ 
             'watchlist' => array(),
             'logged_in' => 0,

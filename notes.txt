@@ -13,6 +13,7 @@ to-do:
     - MAL: use variable variables for WatchListItem, for simpler declaration
     - add titles for HTML files
     - MAL: common login error check
+    - MAL: fix decreasing order on watchlist
 
 - medium priority:
     - extend MAL watchlist viewer with proper features
@@ -20,22 +21,17 @@ to-do:
         - multi-thread cronjob
     - send authentication only if it hasn't happened so far    
         - also hide login inputs if you're already logged in
-    - Reddit statistics database (for reader amounts at least)
-    - SCP database(?) 
     - db_doom: dictionary for allowed and forbidden parameters
-    - Reddit: /r/RoastMe viewer: picture, and comments besides
-    - Reddit: something with /r/worldbuilding
-    - imgur mosaic experiment with API
-    - Reddit: usable search interface
-    - Stack Exchange site expansion monitor
     - MAL: regular search that can somehow redirect to anime_browser
         - involved generalizing anime_browser "input" to a general list
     - add scale to anime_browser
         - needs some CSS work I guess
-    - Code Golf SE: gather EVERY code and comments
     - MAL: add my login for safe operations
     - MAL: save anime titles to the database, just for fun
-    - custom manga reader
+    - MAL: recommendation chain
+    - Reddit statistics database (for reader amounts at least)    
+    - Reddit: usable search interface
+    - "notepad site": where you can put notes and read them via API (by Razorlevi)
 
 - low priority:
     - some CSS design for some proper look
@@ -46,12 +42,19 @@ to-do:
         - or make it more flexible? enormous, yes potentially worthy job...
     - add async loading: counter, "please wait" text, etc
     - try some oop maybe
+
+
+
+
+- do instead on NodeJS
     - "pedig csinálhatnál egy character customise képernyőt ascii stílusban" by Atis
-
-
-
-
-
+    - custom manga reader
+    - SCP database(?) 
+    - Reddit: /r/RoastMe viewer: picture, and comments besides
+    - Reddit: something with /r/worldbuilding
+    - imgur mosaic experiment with API
+    - Stack Exchange site expansion monitor
+    - Code Golf SE: gather EVERY code and comments
 
 - done:
     - fix MAL script on server

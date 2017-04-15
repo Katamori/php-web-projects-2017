@@ -152,7 +152,7 @@
 
         <?php
 
-		    readfile('./html_blocks/execute_btn.html'); 
+		    //readfile('./html_blocks/execute_btn.html'); 
 
             function isNull($e){ if ($e == ""){return "NULL";}else{return $e;} };
 
@@ -217,35 +217,34 @@
             function setMissingUploader($c, $sql_query_result){
 
 
-                $q = "START TRANSACTION; ";
+                //mysqli_begin_transaction($c, MYSQLI_TRANS_START_READ_ONLY);
 
                 while($row = mysqli_fetch_assoc($sql_query_result) ){ 
 
                     $j = json_decode(sendRequest("single", $row['id']));
-                    //var_dump($j->items);
+                    $id = $j->items[0]->snippet->channelId;
+                    $ti = str_replace("'"," ",$j->items[0]->snippet->channelTitle);
+
+                    echo var_dump($j->items).'<br><br><br>';
 
                     /*
                         query 1: add uploader id to the video's db record 
                     */
-                    $q .=   "UPDATE videos SET uploader='".$j->items[0]->snippet->channelId."' ".
-                            "WHERE id='".$row['id']."' AND uploader IS NULL; ".
+                    mysqli_query($c,"UPDATE videos SET uploader='".$id."' WHERE id='".$row['id']."' AND uploader IS NULL");
                     /* 
                         query 2: try adding uploader id to 'uploader' table
                     */
-                            "INSERT IGNORE INTO uploaders VALUES ('"
-                            .$j->items[0]->snippet->channelId."','"
-                            .str_replace("'"," ",$j->items[0]->snippet->channelTitle)."'); ". 
+                    mysqli_query($c,"INSERT IGNORE INTO uploaders VALUES ('".$id."','".$ti."')");
                     /* 
                         query 3: try updating if it already existed and had no 'name' field
                     */
-                            "UPDATE uploaders SET name='".str_replace("'"," ",$j->items[0]->snippet->channelTitle).
-                            "' WHERE id='".$j->items[0]->snippet->channelId."' AND name IS NULL; ";
+                    mysqli_query($c, "UPDATE uploaders SET name='".$ti."' WHERE id='".$id."' AND name IS NULL");
 
                 };
 
-                $q .= "COMMIT;";
-
-                $r = mysqli_multi_query($c, $q) or die($q.' failed: ' . mysqli_error($c));
+                //$q .= "COMMIT;";
+                //mysqli_query($c, $q) or die($q.' failed: ' . mysqli_error($c));
+                //mysqli_commit($c);
 
             };
 
@@ -409,8 +408,8 @@
             $sql_result = mysqli_query($connection, $query) 
                         or die($query.' failed: ' . mysqli_error($connection));          
 
-
-            setMissingUploader($connection ,$sql_result);            
+            setMissingUploader($connection ,$sql_result);
+           
  
 
             unset($row);

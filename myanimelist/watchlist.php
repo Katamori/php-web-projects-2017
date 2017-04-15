@@ -28,11 +28,16 @@
 	<body>
 
         <h1> Your MyAnimeList watchlist </h1>
+
+        <p><a href="../logout.php?acc=myanimelist">Click here to log out.</a></p>
     
         <?php
 
             session_start();
-            readfile('../html_blocks/fork-me.html');
+
+            /*
+                error handling
+            */
 
             try{
                 //if this part of the code fails to work by any chance
@@ -43,26 +48,33 @@
                 //runs a test query that doesn't work without auth
                 $o = file_get_contents(
                     "https://myanimelist.net/api/anime/search.xml?q=test", 
-                    false, 
-                    stream_context_create($_SESSION['custom']['mal']['http_auth']));
+                    false, stream_context_create($_SESSION['custom']['mal']['http_auth']));
 
                 if($o === FALSE){ throw new Exception("HTTP request failed!");}; 
 
+                //form validation (kinda)
+                //if(!isset($_POST['sort'])){ throw new Exception("Sorting option not chosen! Are you hacking into me?!");};
 
                 //beyond the errors:  
-                readfile('../html_blocks/mal_watchlist_input.html');    //add input              
-                require('../myanimelist/common.php');                   //load common calls
-                $_SESSION['custom']['mal']['logged_in'] = 1;            //make login state true
-                echo "Successfully logged in.";
-            }
-            
-            catch(Exception $e){
+                readfile('../html_blocks/fork-me.html');                        //add "fork me" to corner
+                readfile('../html_blocks/mal_watchlist_input.html');            //add input              
+                require('../myanimelist/common.php');                           //load common calls
+                $_SESSION['custom']['mal']['logged_in'] = 1;                    //make login state true
+
+                echo "Successfully logged in. <br>";
+
+                //keep previous values of form
+                isset($_POST['limit']) ? $limit = $_POST['limit'] : $limit=10;             
+
+                $auth_context = stream_context_create($_SESSION['custom']['mal']['http_auth']);
+
+            }catch(Exception $e){
                 echo 'Not that fast! ' .$e->getMessage();
                 exit(); //to terminate everything else, as well
             };
 
 
-            isset($_POST['limit']) ? $limit = $_POST['limit'] : $limit=10;
+
             /*
                 doing the "query"
 
@@ -92,7 +104,7 @@
             //if(isset($_SESSION['custom']['mal']['user_xml'])){
 
                 $url_user = 'https://myanimelist.net/malappinfo.php?u='.$_SESSION['custom']['mal']['user'].'&status=2&type=anime';
-                $xml = file_get_contents($url_user, false, stream_context_create($_SESSION['custom']['mal']['http_auth']));    
+                $xml = file_get_contents($url_user, false, $auth_context);    
                 echo "Anime list of ".$_SESSION['custom']['mal']['user']." gathered from MAL!<br><br>";
       /*          
             }else{
@@ -101,7 +113,9 @@
                 echo $_SESSION['custom']['mal']['user']."'s anime list loaded from session. No new data has been downloaded";
             
             }
-*/
+        */
+
+
             $parser = xml_parser_create();
             xml_parse_into_struct($parser, $xml, $array);
             xml_parser_free($parser);   
@@ -115,11 +129,7 @@
             */
 
 
-            $items = array();
-            $opened = false;
-
-            $temp_id;
-            $temp_title;
+            $items = array(); $opened = false; $temp_id; $temp_title;
 
             $p=0;
             for($q=0; $q<sizeof($array) && $p<$limit; $q++){
@@ -168,29 +178,39 @@
             //unset($_SESSION['custom']['mal']['user_xml']);
 
 
-
-            //the sorting
-            if(isset($_POST['sort'])){
-
+            try{
+                //the sorting
                 function compare($a, $b){ 
                     $member = $_POST['sort'];
-                    if(is_numeric($a->$member) ){ return (isset($_POST['order']) && $a->$member < $b->$member);
-                    }else{ return (isset($_POST['order']) && strcmp( strtolower($a->$member), strtolower($b->$member)));};
-                };
+                    if(isset($_POST['order'])){
+                        if(is_numeric($a->$member)){ return $b->$member < $a->$member;
+                                            }else{ return strcmp( strtolower($b->$member), strtolower($a->$member));}
+                    }else{
+                        if(is_numeric($a->$member)){ return $a->$member < $b->$member;
+                                            }else{ return strcmp( strtolower($a->$member), strtolower($b->$member));} 
+                    };
+                };            
 
                 usort($items, 'compare');
-            };            
-       
 
-            echo("<table>");    //table output
+            }catch(Exception $e){
+                echo $e;
+            }
 
-            //these two lines are temporary restrictions due to php execution time limit at my host
+           
+
+           
+            /*
+                table output
+            */
+
+            echo("<table>");    
+
+            //these two lines are restrictions due to php execution time limit at my host
             for($j=0; $j<$limit; $j++){
                 $value = $items[$j];
             //foreach($items as $value){
                 //echo $value->title." (btw ".var_dump($options).") <br>";
-
-
 
                 //the print-out part
                 echo("<tr>" .

@@ -76,8 +76,8 @@
 			optional write-out of login form
 		*/
 
-			$temp = $_SESSION['custom']['db']['pw'];
-			if(isset($temp) && $temp != ""){
+			$logged_in = $_SESSION['custom']['db']['logged_in'];
+			if(isset($logged_in) && $logged_in === 1){
 				echo 'You\'re already logged in, <a href="../hostinger/db_doom.php">click here to proceed.</a> ';
 			}else{ 
 				readfile('./html_blocks/login_db.html'); 
