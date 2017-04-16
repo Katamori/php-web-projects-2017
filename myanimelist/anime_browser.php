@@ -1,24 +1,33 @@
 <?php 
     session_start();
 
-    //initialization error check
-    if(!isset($_SESSION['custom']['mal'])){
-        echo 'MyAnimeList authorization did not happened! Log in properly.<br>'.
-             '<a href="../index.php">Back to the main page.</a>';      
-        exit();
-    }elseif(!isset($_SESSION['custom']['mal']['watchlist'])){
-        echo 'Your watchlist is not detected! Try again.<br>'.
-             '<a href="../index.php">Back to the main page.</a>';
-        exit();
-    }elseif(!isset($_POST['title'])){
-        echo 'No anime series were selected! Use this page properly. <br>'.
-             '<a href="../index.php">Back to the main page.</a>';
-        print_r($_POST);
-        exit();
-    }else{ 
-        readfile('./html_blocks/fork-me.html');         
+    //initialization error check    
+    try{
+
+        if(!isset($_SESSION['custom']['mal'])){
+            throw new Exception('MyAnimeList authorization did not happened! Log in properly.<br>');      
+        }
+
+        if(!isset($_SESSION['custom']['mal']['watchlist'])){
+            throw new Exception('Your watchlist is not detected! Try again.<br>');
+            exit();
+        }
+
+        if(!isset($_POST['title'])){
+            throw new Exception('No anime series were selected! Use this page properly. <br>');
+
+        }
+
+        readfile('../html_blocks/fork-me.html');         
         require('../myanimelist/common.php');
-    }; 
+
+
+    }catch(Exception $e){
+        echo $e->getMessage().'<a href="../index.php">Back to the main page.</a>';
+    }
+
+
+
 
 
     /*
@@ -103,7 +112,7 @@
                 </td>
                 <td>
                     <?php echo 
-                        "Series: ".$_POST['title'].", no. ".$m.". in your watchlist.<br><br>".
+                        "Series: ".str_replace('+', ' ', $_POST['title']).", no. ".$m.". in your current query.<br><br>".
                         $subject->synopsis."<br><br>".
                         "<a href='https://myanimelist.net/anime/".$subject->db_id."'>More information at MyAnimeList.net</a>";         
                     ?>

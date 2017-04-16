@@ -11,6 +11,7 @@
         public $type = null;
         public $mal_score = null;
         public $date_start = null;
+        public $date_end = null;        
         public $runtime = null;
         public $episodes = null;
         public $img = null;
@@ -40,9 +41,7 @@
         xml_parse_into_struct($p, $tempxml, $temp_array);
         xml_parser_free($p); 
                         
-
-
-
+        $tempdate1; $tempdate2;
 
 
         foreach ($temp_array as &$inner_value) {
@@ -53,10 +52,18 @@
                         case "SCORE":       $watchlistitem->mal_score = $inner_value["value"];     break;
                         case "TYPE":        $watchlistitem->type = $inner_value["value"];          break;
                         case "EPISODES":    $watchlistitem->episodes = $inner_value["value"];      break;                                    
-                        case "IMAGE":       $watchlistitem->img = $inner_value["value"];           break;
-                        case "START_DATE":  $watchlistitem->date_start = $inner_value["value"];    break;
+                        case "IMAGE":       $watchlistitem->img = $inner_value["value"];           break;                     
                         case "SYNONYMS":    $watchlistitem->synonym = $inner_value["value"];       break;
-                        case "SYNOPSIS":    $watchlistitem->synopsis = $inner_value["value"];      break;                                                
+                        case "SYNOPSIS":    $watchlistitem->synopsis = $inner_value["value"];      break;
+                        case "START_DATE":  
+                            $watchlistitem->date_start = $inner_value["value"]; 
+                            $tempdate1 = new DateTime($inner_value["value"]);   
+                            break;                          
+                        case "END_DATE":    
+                            $watchlistitem->date_end = $inner_value["value"];      
+                            $tempdate2 = new DateTime($inner_value["value"]);   
+                            $watchlistitem->runtime = $tempdate1->diff($tempdate2)->days;
+                            break;                                                 
                     }
         /*
             this case means that the end of an XML "portion" is reached

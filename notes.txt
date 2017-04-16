@@ -6,32 +6,18 @@ to-do:
         - use MD5
         - prevent outer access of certain files
         - manual SQL writer with preventing injection
-    - huge overhaul for the YT crawler
-    - add new tables to x_doom db: authors, speedrunners, trusted uploaders(?)
-    - provide relog attempts 
-    - make logout possible
-    - MAL: use variable variables for WatchListItem, for simpler declaration
-    - add titles for HTML files
-    - MAL: common login error check
-    - MAL: fix decreasing order on watchlist
 
 - medium priority:
-    - extend MAL watchlist viewer with proper features
     - update cronjob (not visible on GitHub due to plaintext password contained)
         - multi-thread cronjob
-    - send authentication only if it hasn't happened so far    
-        - also hide login inputs if you're already logged in
     - db_doom: dictionary for allowed and forbidden parameters
-    - MAL: regular search that can somehow redirect to anime_browser
-        - involved generalizing anime_browser "input" to a general list
-    - add scale to anime_browser
-        - needs some CSS work I guess
-    - MAL: add my login for safe operations
-    - MAL: save anime titles to the database, just for fun
-    - MAL: recommendation chain
+                        - MAL: regular search that can somehow redirect to anime_browser
+                            - involved generalizing anime_browser "input" to a general list
     - Reddit statistics database (for reader amounts at least)    
     - Reddit: usable search interface
     - "notepad site": where you can put notes and read them via API (by Razorlevi)
+    - huge overhaul for the YT crawler
+
 
 - low priority:
     - some CSS design for some proper look
@@ -42,6 +28,12 @@ to-do:
         - or make it more flexible? enormous, yes potentially worthy job...
     - add async loading: counter, "please wait" text, etc
     - try some oop maybe
+    - MAL: add my login for safe operations
+    - MAL: save anime titles to the database, just for fun
+    - MAL: recommendation chain
+    - add new tables to x_doom db: authors, speedrunners, trusted uploaders(?)
+    - add titles for HTML files
+
 
 
 
@@ -67,6 +59,14 @@ to-do:
     - if logged in, still be able to choose landing site
     - db_doom: hide login inputs when AJAX request is sent
     - MAL: implement watchlist ordering, once and for all
+    - provide relog attempts 
+    - make logout possible
+    - MAL: common login error check
+    - MAL: fix decreasing order on watchlist 
+    - send authentication only if it hasn't happened so far    
+        - also hide login inputs if you're already logged in
+    - extend MAL watchlist viewer with proper features
+
 
 -------------------------------------------------------------
 
